@@ -67,13 +67,13 @@ RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
 
 # Pre-install Gemini extensions
-RUN gemini extensions install https://github.com/upstash/context7 && \
-    gemini extensions install https://github.com/obra/superpowers && \
-    gemini extensions install https://github.com/gemini-cli-extensions/conductor && \
-    gemini extensions install https://github.com/qodo-ai/open-aware && \
-    gemini extensions install https://github.com/gemini-cli-extensions/code-review && \
-    gemini extensions install https://github.com/gemini-cli-extensions/security && \
-    gemini extensions install https://github.com/poemswe/co-researcher
+RUN gemini --skip-trust extensions install https://github.com/upstash/context7 && \
+    gemini --skip-trust extensions install https://github.com/obra/superpowers && \
+    gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/conductor && \
+    gemini --skip-trust extensions install https://github.com/qodo-ai/open-aware && \
+    gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/code-review && \
+    gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/security && \
+    gemini --skip-trust extensions install https://github.com/poemswe/co-researcher
 
 RUN tldr --update
 
