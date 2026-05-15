@@ -31,6 +31,13 @@ A `Makefile` is available in the root directory to manage builds:
 - `make <language>`: Builds a specific language sandbox (e.g., `make rust`, `make python`).
 - `make all-in-one`: Builds the comprehensive `gemini-sandbox-all` image.
 
+## Usage with Gemini CLI
+To use these sandboxes with the `gemini -s` command, set the following environment variables:
+```bash
+export GEMINI_SANDBOX=docker
+export GEMINI_SANDBOX_IMAGE=gemini-sandbox-all
+```
+
 ## Instructions for Gemini
 1. **Tool Discovery**: If you need a tool that isn't installed, check if it's available via `brew`.
 2. **Scripting**: Prefer Python 3.11 for complex logic or automation tasks within the sandboxes.

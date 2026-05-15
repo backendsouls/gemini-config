@@ -58,6 +58,18 @@ Example of installing a new tool inside a running container:
 brew install htop
 ```
 
+## Usage with Gemini CLI
+
+You can use these sandboxes directly with the Gemini CLI by setting the following environment variables:
+
+```bash
+export GEMINI_SANDBOX=docker
+export GEMINI_SANDBOX_IMAGE=gemini-sandbox-all
+gemini -s
+```
+
+Replace `gemini-sandbox-all` with any other specific language image (e.g., `gemini-sandbox-python`) as needed.
+
 ## Design Philosophy
 
 1. **Isolation**: Each environment is self-contained.
