@@ -38,6 +38,10 @@ export GEMINI_SANDBOX=docker
 export GEMINI_SANDBOX_IMAGE=gemini-sandbox-all
 ```
 
+## Reasoning Framework
+- **Methodology**: Use **Tree of Thoughts (ToT)** as the primary framework for all cognitive tasks.
+- **Application**: When studying the codebase, generating new features, writing tests, or debugging issues, explicitly explore multiple reasoning paths. Evaluate each path for technical viability, security, and performance before deciding on the final implementation.
+
 ## Instructions for Gemini
 1. **Tool Discovery**: If you need a tool that isn't installed, check if it's available via `brew`.
 2. **Scripting**: Prefer Python 3.11 for complex logic or automation tasks within the sandboxes.
