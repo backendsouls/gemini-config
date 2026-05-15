@@ -66,6 +66,9 @@ RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/npm /usr/bin/npm && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
 
+# Pre-install Gemini extensions
+RUN gemini extensions install https://github.com/upstash/context7
+
 RUN tldr --update
 
 # Create Gemini configuration directory and file
