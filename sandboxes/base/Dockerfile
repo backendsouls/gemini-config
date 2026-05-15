@@ -70,7 +70,8 @@ RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
 RUN gemini extensions install https://github.com/upstash/context7 && \
     gemini extensions install https://github.com/obra/superpowers && \
     gemini extensions install https://github.com/gemini-cli-extensions/conductor && \
-    gemini extensions install https://github.com/qodo-ai/open-aware
+    gemini extensions install https://github.com/qodo-ai/open-aware && \
+    gemini extensions install https://github.com/gemini-cli-extensions/code-review
 
 RUN tldr --update
 
