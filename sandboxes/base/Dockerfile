@@ -66,14 +66,15 @@ RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/npm /usr/bin/npm && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
 
-# Pre-install Gemini extensions
-RUN GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/upstash/context7 && \
-    GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/obra/superpowers && \
-    GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/gemini-cli-extensions/conductor && \
-    GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/qodo-ai/open-aware && \
-    GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/gemini-cli-extensions/code-review && \
-    GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/gemini-cli-extensions/security && \
-    GEMINI_API_KEY=dummy gemini --skip-trust extensions install --consent --skip-settings https://github.com/poemswe/co-researcher
+# Pre-install Gemini extensions manually via git clone
+RUN mkdir -p /home/gemini/.gemini/extensions && \
+    git clone https://github.com/upstash/context7 /home/gemini/.gemini/extensions/context7 && \
+    git clone https://github.com/obra/superpowers /home/gemini/.gemini/extensions/superpowers && \
+    git clone https://github.com/gemini-cli-extensions/conductor /home/gemini/.gemini/extensions/conductor && \
+    git clone https://github.com/qodo-ai/open-aware /home/gemini/.gemini/extensions/open-aware && \
+    git clone https://github.com/gemini-cli-extensions/code-review /home/gemini/.gemini/extensions/code-review && \
+    git clone https://github.com/gemini-cli-extensions/security /home/gemini/.gemini/extensions/security && \
+    git clone https://github.com/poemswe/co-researcher /home/gemini/.gemini/extensions/co-researcher
 
 RUN tldr --update
 
