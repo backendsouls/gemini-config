@@ -66,7 +66,7 @@ RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/npm /usr/bin/npm && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
 
-# Pre-install Gemini extensions manually via git clone
+# Pre-install Gemini extensions manually via git clone and install dependencies
 RUN mkdir -p /home/gemini/.gemini/extensions && \
     git clone https://github.com/upstash/context7 /home/gemini/.gemini/extensions/context7 && \
     git clone https://github.com/obra/superpowers /home/gemini/.gemini/extensions/superpowers && \
@@ -74,11 +74,16 @@ RUN mkdir -p /home/gemini/.gemini/extensions && \
     git clone https://github.com/qodo-ai/open-aware /home/gemini/.gemini/extensions/open-aware && \
     git clone https://github.com/gemini-cli-extensions/code-review /home/gemini/.gemini/extensions/code-review && \
     git clone https://github.com/gemini-cli-extensions/security /home/gemini/.gemini/extensions/gemini-cli-security && \
-    git clone https://github.com/poemswe/co-researcher /home/gemini/.gemini/extensions/co-researcher
+    git clone https://github.com/poemswe/co-researcher /home/gemini/.gemini/extensions/co-researcher && \
+    for d in /home/gemini/.gemini/extensions/*; do \
+        if [ -f "$d/package.json" ]; then \
+            echo "Installing dependencies for $(basename $d)..." && \
+            cd "$d" && npm install --production && cd ..; \
+        fi; \
+    done
 
-# Verify extensions are present
-RUN ls -la /home/gemini/.gemini/extensions && \
-    gemini extensions list
+# Verify extensions are present and loadable
+RUN gemini --debug --list-extensions
 
 RUN tldr --update
 

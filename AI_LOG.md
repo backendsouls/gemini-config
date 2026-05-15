@@ -12,7 +12,7 @@ This log records significant actions, architectural decisions, and reasoning pat
 - Explicitly added `sed` to the base image.
 - Disabled telemetry for Homebrew, Go, Python (Pip), and Gemini CLI.
 - Pre-installed `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `security`, and `co-researcher` Gemini extensions in the base sandbox.
-- Fixed extension installation by using correct directory names (e.g., `gemini-cli-security`) and manual `git clone` to avoid Docker build interactivity issues.
+- Fixed extension installation by using correct directory names (e.g., `gemini-cli-security`), manual `git clone`, and running `npm install --production` to ensure dependencies are present for loading.
 - Created `EXTENSIONS.md` to document the pre-installed Gemini extensions and linked it from the README.
 
 ### Decisions:
@@ -24,8 +24,8 @@ This log records significant actions, architectural decisions, and reasoning pat
   - **Rationale**: User directive to maintain a transparent record of agent activity.
 - **Decision**: Pre-install `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `security`, and `co-researcher` extensions.
   - **Rationale**: User request to include specific Gemini extensions in the sandbox environment to enhance capabilities, orchestration, code awareness, review, security, and research workflows.
-- **Decision**: Use manual `git clone` for extensions in Dockerfile.
-  - **Rationale**: The CLI installer (`gemini extensions install`) was unreliable in the Docker build process due to trust prompts and auth checks. Manual cloning into `~/.gemini/extensions` is a stable alternative.
+- **Decision**: Use manual `git clone` and `npm install` for extensions in Dockerfile.
+  - **Rationale**: The CLI installer (`gemini extensions install`) was unreliable in the Docker build process. Manual cloning followed by `npm install` ensures all required Node.js dependencies are present for the CLI to successfully load the extensions.
 
 ### Reasoning Paths (ToT):
 - **Path A**: Keep individual language installations separate. (Rejected: High maintenance, inconsistent Python availability).
