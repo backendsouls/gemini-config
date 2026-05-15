@@ -2,6 +2,8 @@
 
 This repository contains various Docker-based sandbox environments for Gemini CLI tasks. Each sandbox is equipped with Homebrew for package management and common development tools.
 
+This project is vibe coded :)
+
 ## Sandbox Variants
 
 | Sandbox | Description | Key Tools |
