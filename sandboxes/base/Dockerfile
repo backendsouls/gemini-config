@@ -35,6 +35,9 @@ WORKDIR /home/gemini
 # Install Homebrew
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Add Homebrew and Python to PATH
+ENV PATH="/home/linuxbrew/.linuxbrew/opt/python@3.11/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+
 # Install common tools via Homebrew
 RUN brew install \
     python@3.11 \
@@ -51,9 +54,6 @@ RUN brew install \
     tree \
     vim \
     htop
-
-# Add Homebrew to PATH
-ENV PATH="/home/linuxbrew/.linuxbrew/opt/python@3.11/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
 RUN npm install -g @google/gemini-cli@latest
 
