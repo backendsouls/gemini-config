@@ -11,7 +11,7 @@ This log records significant actions, architectural decisions, and reasoning pat
 - Expanded `sandboxes/all/Dockerfile` to include Java (SDKMAN), JavaScript (NVM), Go, Rust, Ruby, PHP, Lua, and C++.
 - Explicitly added `sed` to the base image.
 - Disabled telemetry for Homebrew, Go, Python (Pip), and Gemini CLI.
-- Pre-installed `context7` and `superpowers` Gemini extensions in the base sandbox.
+- Pre-installed `context7`, `superpowers`, and `conductor` Gemini extensions in the base sandbox.
 
 ### Decisions:
 - **Decision**: Move Python to base image.
@@ -20,8 +20,8 @@ This log records significant actions, architectural decisions, and reasoning pat
   - **Rationale**: User directive to improve cognitive depth and evaluation of reasoning paths.
 - **Decision**: Implement `AI_LOG.md`.
   - **Rationale**: User directive to maintain a transparent record of agent activity.
-- **Decision**: Pre-install `context7` and `superpowers` extensions.
-  - **Rationale**: User request to include specific Gemini extensions in the sandbox environment to enhance capabilities.
+- **Decision**: Pre-install `context7`, `superpowers`, and `conductor` extensions.
+  - **Rationale**: User request to include specific Gemini extensions in the sandbox environment to enhance capabilities and orchestration.
 
 ### Reasoning Paths (ToT):
 - **Path A**: Keep individual language installations separate. (Rejected: High maintenance, inconsistent Python availability).
