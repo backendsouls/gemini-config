@@ -8,7 +8,7 @@ This project is vibe coded :)
 
 | Sandbox | Description | Key Tools |
 |---|-|---|
-| [Base](./sandboxes/base) | Essential tools only | `jq`, `fzf`, `rg`, `fd`, `bat`, `vim` |
+| [Base](./sandboxes/base) | Essential tools only | `jq`, `fzf`, `rg`, `fd`, `bat`, `vim`, `sed` |
 | [Python](./sandboxes/python) | Python optimized | Python 3.11, Base Tools |
 | [JavaScript](./sandboxes/javascript) | JS/TS optimized | Node.js (NVM), TypeScript, Python 3.11 |
 | [Go](./sandboxes/go) | Go optimized | Go, Python 3.11, Base Tools |
