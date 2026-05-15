@@ -4,6 +4,12 @@ FROM ubuntu:22.04
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Disable telemetry and analytical tracking for various tools
+ENV HOMEBREW_NO_ANALYTICS=1 \
+    GOTELEMETRY=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    GEMINI_TELEMETRY_ENABLED=false
+
 # Install essential dependencies for Homebrew and general use
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -83,5 +89,9 @@ You are running inside a specialized Gemini CLI sandbox.\n\
 
 RUN git config --global user.name "Gemini CLI" && \
     git config --global user.email "gemini@local.sandbox"
+
+# Disable Gemini CLI usage statistics by default
+RUN mkdir -p /home/gemini/.gemini && \
+    echo '{"privacy": {"usageStatisticsEnabled": false}}' > /home/gemini/.gemini/settings.json
 
 CMD ["/bin/bash"]
