@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     file \
     wget \
     dnsutils \
+    zip \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user for Homebrew
@@ -26,11 +28,10 @@ WORKDIR /home/gemini
 # Install Homebrew
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Add Homebrew to PATH
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
-
 # Install common tools via Homebrew
 RUN brew install \
+    python@3.11 \
+    node \
     jq \
     yq \
     htmlq \
@@ -44,6 +45,20 @@ RUN brew install \
     vim \
     htop
 
+# Add Homebrew to PATH
+ENV PATH="/home/linuxbrew/.linuxbrew/opt/python@3.11/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+
+RUN npm install -g @google/gemini-cli@latest
+
+# Create a helper script for easy updates inside the sandbox
+RUN echo '#!/bin/bash\nsudo npm install -g @google/gemini-cli@latest && sudo ln -sf /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini' > /home/gemini/update-gemini.sh && \
+    chmod +x /home/gemini/update-gemini.sh
+
+# Symlink binaries to /usr/bin to ensure they are always in PATH
+RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
+    sudo ln -s /home/linuxbrew/.linuxbrew/bin/npm /usr/bin/npm && \
+    sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
+
 RUN tldr --update
 
 # Create Gemini configuration directory and file
@@ -55,11 +70,11 @@ You are running inside a specialized Gemini CLI sandbox.\n\
 - **OS**: Ubuntu 22.04\n\
 - **User**: gemini (with passwordless sudo)\n\
 - **Package Manager**: Homebrew (brew) is available and preferred.\n\
-- **Core Tools**: jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig.\n\
+- **Core Tools**: Gemini CLI, jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig, zip, unzip.\n\
 - **Scripting**: Python 3.11 is available.\n\
 \n\
 ## Language Specifics\n\
-- This sandbox includes: Base Tools\n\
+- This sandbox includes: Gemini CLI, Base Tools\n\
 \n\
 ## Instructions\n\
 1. Use '\''brew install <package>'\'' if you need more tools.\n\

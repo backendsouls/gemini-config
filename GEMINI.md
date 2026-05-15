@@ -6,13 +6,16 @@ This workspace is designed to manage and build various Docker-based sandbox envi
 - **Location**: All sandboxes are located in the `sandboxes/` directory.
 - **Architecture**: A hierarchical Docker structure is used. All language sandboxes inherit from `sandboxes/base`.
 - **Base Image**: The `base` sandbox is built on Ubuntu 22.04.
-- **Package Manager**: **Homebrew (`brew`)** is the primary package manager. 
+- **Package Managers**: 
+  - **Homebrew (`brew`)**: Primary manager for CLI tools.
+  - **SDKMAN!**: Used in Java sandboxes for JDKs, Maven, and Gradle.
+  - **NVM**: Used in JavaScript sandboxes for Node.js versions.
 - **User**: The default user in all sandboxes is `gemini` with `sudo` access.
 
 ## Available Tools (Pre-installed via Brew/Apt)
 When working within these sandboxes, you have access to:
 - **Compilers**: `build-essential` (gcc, g++, make), `cmake`, `gdb`
-- **Text Processing**: `jq`, `yq`, `htmlq`, `sed`, `wc`
+- **Text Processing**: `jq`, `yq`, `htmlq`, `sed`, `wc`, `zip`, `unzip`
 - **Quality & Docs**: `shellcheck`, `tldr`
 - **Fuzzy Finding**: `fzf`
 - **Searching**: `ripgrep` (`rg`), `fd`

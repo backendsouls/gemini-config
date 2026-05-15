@@ -18,6 +18,7 @@ help:
 	@echo "  ruby         Build ruby sandbox"
 	@echo "  java         Build java sandbox"
 	@echo "  php          Build php sandbox"
+	@echo "  lua          Build lua sandbox"
 	@echo "  cpp          Build c/c++ sandbox"
 	@echo "  all-in-one   Build the 'all' sandbox with everything"
 	@echo "  build-all    Build ALL sandboxes sequentially"
@@ -48,14 +49,22 @@ java: base
 php: base
 	docker build -t gemini-sandbox-php sandboxes/php
 
+lua: base
+	docker build -t gemini-sandbox-lua sandboxes/lua
+
 cpp: base
 	docker build -t gemini-sandbox-cpp sandboxes/cpp
 
 all-in-one: base
 	docker build -t gemini-sandbox-all sandboxes/all
 
+# Upgrade Gemini CLI to the latest version across all images
+upgrade:
+	docker build --no-cache --pull -t gemini-sandbox-base sandboxes/base
+	make all-in-one
+
 # Build all sandboxes
-build-all: base python javascript go rust ruby java php cpp all-in-one
+build-all: base python javascript go rust ruby java php lua cpp all-in-one
 
 # Clean targets
 clean:

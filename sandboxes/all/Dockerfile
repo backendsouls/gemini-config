@@ -1,22 +1,32 @@
 # All-in-One Sandbox for Gemini CLI
 FROM gemini-sandbox-base
 
-# Install all languages and tools
+# Install SDKMAN, Maven, and Gradle
+ENV SDKMAN_DIR="/home/gemini/.sdkman"
+RUN curl -s "https://get.sdkman.io" | bash && \
+    bash -c "source $SDKMAN_DIR/bin/sdkman-init.sh && \
+    sdk install java 17.0.10-tem && \
+    sdk install maven && \
+    sdk install gradle"
+
+# Install NVM and TypeScript
+ENV NVM_DIR="/home/gemini/.nvm"
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
+    bash -c "source $NVM_DIR/nvm.sh && \
+    nvm install 20 && \
+    nvm use 20 && \
+    npm install -g typescript ts-node"
+
+# Install other languages via Homebrew
 RUN brew install \
-    python@3.11 \
-    node \
     go \
     rust \
     ruby \
-    openjdk \
     php \
+    lua \
+    luarocks \
     cmake \
     gdb
-
-# Set up environment
-ENV PATH="/home/linuxbrew/.linuxbrew/opt/python@3.11/bin:${PATH}"
-ENV JAVA_HOME="/home/linuxbrew/.linuxbrew/opt/openjdk"
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # Update Gemini configuration file
 RUN printf '# Gemini CLI Sandbox Environment\n\
@@ -25,15 +35,18 @@ You are running inside a specialized Gemini CLI sandbox.\n\
 ## Environment Capabilities\n\
 - **OS**: Ubuntu 22.04\n\
 - **User**: gemini (with passwordless sudo)\n\
-- **Package Manager**: Homebrew (brew) is available and preferred.\n\
-- **Core Tools**: jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig.\n\
-- **Scripting**: Python 3.11 is available.\n\
+- **Package Manager**: Homebrew (brew), SDKMAN (Java), NVM (Node.js).\n\
+- **Core Tools**: Gemini CLI, jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig, zip, unzip.\n\
+- **Scripting**: Python 3.11 and Lua are available.\n\
 \n\
 ## Language Specifics\n\
-- This sandbox includes: Python 3.11, Node.js, Go, Rust, Ruby, OpenJDK, PHP, C/C++ (CMake, GDB)\n\
+- This sandbox includes: Gemini CLI, Python, Node.js (via NVM), TypeScript, Go, Rust, Ruby, Java (via SDKMAN), PHP, Lua, Luarocks, C/C++ (build-essential, CMake, GDB)\n\
+
+- **Usage**: Run `source "$SDKMAN_DIR/bin/sdkman-init.sh"` or `source "$NVM_DIR/nvm.sh"` to initialize managers.\n\
 \n\
 ## Instructions\n\
-1. Use '\''brew install <package>'\'' if you need more tools.\n\
-2. Prefer Python 3.11 for automation scripts.\n' > /home/gemini/.gemini/GEMINI.md
+1. Use version managers (sdk/nvm) to switch runtime versions.\n\
+2. Use '\''brew install <package>'\'' for other tools.\n\
+3. Prefer Python 3.11 for automation scripts.\n' > /home/gemini/.gemini/GEMINI.md
 
 CMD ["/bin/bash"]
