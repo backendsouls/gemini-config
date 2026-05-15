@@ -67,13 +67,13 @@ RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
 
 # Pre-install Gemini extensions
-RUN gemini --skip-trust extensions install https://github.com/upstash/context7 && \
-    gemini --skip-trust extensions install https://github.com/obra/superpowers && \
-    gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/conductor && \
-    gemini --skip-trust extensions install https://github.com/qodo-ai/open-aware && \
-    gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/code-review && \
-    gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/security && \
-    gemini --skip-trust extensions install https://github.com/poemswe/co-researcher
+RUN GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/upstash/context7 --consent --skip-settings && \
+    GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/obra/superpowers --consent --skip-settings && \
+    GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/conductor --consent --skip-settings && \
+    GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/qodo-ai/open-aware --consent --skip-settings && \
+    GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/code-review --consent --skip-settings && \
+    GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/gemini-cli-extensions/security --consent --skip-settings && \
+    GEMINI_API_KEY=dummy gemini --skip-trust extensions install https://github.com/poemswe/co-researcher --consent --skip-settings
 
 RUN tldr --update
 
