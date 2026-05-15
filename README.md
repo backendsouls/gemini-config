@@ -70,6 +70,8 @@ gemini -s
 
 Replace `gemini-sandbox-all` with any other specific language image (e.g., `gemini-sandbox-python`) as needed.
 
+See [EXTENSIONS.md](./EXTENSIONS.md) for details on pre-installed Gemini extensions.
+
 ## Design Philosophy
 
 1. **Isolation**: Each environment is self-contained.

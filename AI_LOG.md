@@ -12,6 +12,7 @@ This log records significant actions, architectural decisions, and reasoning pat
 - Explicitly added `sed` to the base image.
 - Disabled telemetry for Homebrew, Go, Python (Pip), and Gemini CLI.
 - Pre-installed `context7`, `superpowers`, `conductor`, `open-aware`, and `code-review` Gemini extensions in the base sandbox.
+- Created `EXTENSIONS.md` to document the pre-installed Gemini extensions and linked it from the README.
 
 ### Decisions:
 - **Decision**: Move Python to base image.
@@ -22,6 +23,8 @@ This log records significant actions, architectural decisions, and reasoning pat
   - **Rationale**: User directive to maintain a transparent record of agent activity.
 - **Decision**: Pre-install `context7`, `superpowers`, `conductor`, `open-aware`, and `code-review` extensions.
   - **Rationale**: User request to include specific Gemini extensions in the sandbox environment to enhance capabilities, orchestration, code awareness, and review workflows.
+- **Decision**: Create `EXTENSIONS.md`.
+  - **Rationale**: Documentation requirement to clarify which extensions are available and what they do.
 
 ### Reasoning Paths (ToT):
 - **Path A**: Keep individual language installations separate. (Rejected: High maintenance, inconsistent Python availability).
