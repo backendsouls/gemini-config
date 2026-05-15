@@ -11,7 +11,7 @@ This log records significant actions, architectural decisions, and reasoning pat
 - Expanded `sandboxes/all/Dockerfile` to include Java (SDKMAN), JavaScript (NVM), Go, Rust, Ruby, PHP, Lua, and C++.
 - Explicitly added `sed` to the base image.
 - Disabled telemetry for Homebrew, Go, Python (Pip), and Gemini CLI.
-- Pre-installed `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, and `security` Gemini extensions in the base sandbox.
+- Pre-installed `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `security`, and `co-researcher` Gemini extensions in the base sandbox.
 - Created `EXTENSIONS.md` to document the pre-installed Gemini extensions and linked it from the README.
 
 ### Decisions:
@@ -21,8 +21,8 @@ This log records significant actions, architectural decisions, and reasoning pat
   - **Rationale**: User directive to improve cognitive depth and evaluation of reasoning paths.
 - **Decision**: Implement `AI_LOG.md`.
   - **Rationale**: User directive to maintain a transparent record of agent activity.
-- **Decision**: Pre-install `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, and `security` extensions.
-  - **Rationale**: User request to include specific Gemini extensions in the sandbox environment to enhance capabilities, orchestration, code awareness, review, and security workflows.
+- **Decision**: Pre-install `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `security`, and `co-researcher` extensions.
+  - **Rationale**: User request to include specific Gemini extensions in the sandbox environment to enhance capabilities, orchestration, code awareness, review, security, and research workflows.
 - **Decision**: Create `EXTENSIONS.md`.
   - **Rationale**: Documentation requirement to clarify which extensions are available and what they do.
 
