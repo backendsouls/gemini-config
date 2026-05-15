@@ -42,6 +42,9 @@ export GEMINI_SANDBOX_IMAGE=gemini-sandbox-all
 - **Methodology**: Use **Tree of Thoughts (ToT)** as the primary framework for all cognitive tasks.
 - **Application**: When studying the codebase, generating new features, writing tests, or debugging issues, explicitly explore multiple reasoning paths. Evaluate each path for technical viability, security, and performance before deciding on the final implementation.
 
+## Operational Audit
+- **AI Log**: Maintain a file named `AI_LOG.md` in the workspace root. Log significant architectural decisions, tool choices, and the rationale behind complex implementations. This log serves as a chronological record of the agent's actions and decisions for transparency and review.
+
 ## Instructions for Gemini
 1. **Tool Discovery**: If you need a tool that isn't installed, check if it's available via `brew`.
 2. **Scripting**: Prefer Python 3.11 for complex logic or automation tasks within the sandboxes.
