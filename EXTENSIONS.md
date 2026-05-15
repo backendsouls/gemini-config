@@ -9,7 +9,7 @@ The following Gemini CLI extensions are pre-installed in all sandbox environment
 | **conductor** | [gemini-cli-extensions/conductor](https://github.com/gemini-cli-extensions/conductor) | Orchestrates complex workflows and manages sub-task delegation. |
 | **open-aware** | [qodo-ai/open-aware](https://github.com/qodo-ai/open-aware) | Improves code awareness and understanding of project-wide symbols. |
 | **code-review** | [gemini-cli-extensions/code-review](https://github.com/gemini-cli-extensions/code-review) | Specialized tools for automated code quality analysis and reviews. |
-| **security** | [gemini-cli-extensions/security](https://github.com/gemini-cli-extensions/security) | Tools for identifying vulnerabilities and ensuring secure coding practices. |
+| **gemini-cli-security** | [gemini-cli-extensions/security](https://github.com/gemini-cli-extensions/security) | Tools for identifying vulnerabilities and ensuring secure coding practices. |
 | **co-researcher** | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | Assistant for deep research, information gathering, and synthesis. |
 
 ## Usage

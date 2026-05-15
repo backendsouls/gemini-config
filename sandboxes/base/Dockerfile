@@ -73,8 +73,12 @@ RUN mkdir -p /home/gemini/.gemini/extensions && \
     git clone https://github.com/gemini-cli-extensions/conductor /home/gemini/.gemini/extensions/conductor && \
     git clone https://github.com/qodo-ai/open-aware /home/gemini/.gemini/extensions/open-aware && \
     git clone https://github.com/gemini-cli-extensions/code-review /home/gemini/.gemini/extensions/code-review && \
-    git clone https://github.com/gemini-cli-extensions/security /home/gemini/.gemini/extensions/security && \
+    git clone https://github.com/gemini-cli-extensions/security /home/gemini/.gemini/extensions/gemini-cli-security && \
     git clone https://github.com/poemswe/co-researcher /home/gemini/.gemini/extensions/co-researcher
+
+# Verify extensions are present
+RUN ls -la /home/gemini/.gemini/extensions && \
+    gemini extensions list
 
 RUN tldr --update
 
