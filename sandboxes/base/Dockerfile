@@ -83,7 +83,7 @@ RUN mkdir -p /home/gemini/.gemini/extensions && \
     done
 
 # Verify extensions are present and loadable
-RUN gemini --debug --list-extensions
+RUN GEMINI_API_KEY=dummy gemini --debug --list-extensions
 
 RUN tldr --update
 
