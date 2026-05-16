@@ -57,15 +57,17 @@ RUN brew install \
     vim \
     htop
 
-RUN npm install -g @google/gemini-cli@latest
+RUN npm install -g @google/gemini-cli@latest pnpm
 
 # Create a helper script for easy updates inside the sandbox
-RUN echo '#!/bin/bash\nsudo npm install -g @google/gemini-cli@latest && sudo ln -sf /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini' > /home/gemini/update-gemini.sh && \
+RUN echo '#!/bin/bash\nsudo npm install -g @google/gemini-cli@latest pnpm && sudo ln -sf /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini' > /home/gemini/update-gemini.sh && \
     chmod +x /home/gemini/update-gemini.sh
 
 # Symlink binaries to /usr/bin to ensure they are always in PATH
 RUN sudo ln -s /home/linuxbrew/.linuxbrew/bin/node /usr/bin/node && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/npm /usr/bin/npm && \
+    sudo ln -s /home/linuxbrew/.linuxbrew/bin/npx /usr/bin/npx && \
+    sudo ln -s /home/linuxbrew/.linuxbrew/bin/pnpm /usr/bin/pnpm && \
     sudo ln -s /home/linuxbrew/.linuxbrew/bin/gemini /usr/bin/gemini
 
 # Pre-install Gemini extensions manually via git clone and install dependencies
@@ -77,11 +79,18 @@ RUN mkdir -p /home/gemini/.gemini/extensions && \
     git clone https://github.com/gemini-cli-extensions/code-review /home/gemini/.gemini/extensions/code-review && \
     git clone https://github.com/gemini-cli-extensions/security /home/gemini/.gemini/extensions/gemini-cli-security && \
     git clone https://github.com/poemswe/co-researcher /home/gemini/.gemini/extensions/co-researcher && \
-    for d in /home/gemini/.gemini/extensions/*; do \
-        if [ -f "$d/package.json" ]; then \
-            echo "Installing dependencies for $(basename $d)..." && \
-            cd "$d" && npm install --production && cd ..; \
-        fi; \
+    mkdir -p /home/gemini/.npm && \
+    export CI=true && \
+    find /home/gemini/.gemini/extensions -maxdepth 3 -name package.json | while read pkg; do \
+        dir=$(dirname "$pkg"); \
+        echo "Processing dependencies for $dir..."; \
+        cd "$dir" && \
+        if [ -f "pnpm-lock.yaml" ] || grep -q "workspace:" package.json; then \
+            pnpm install --no-frozen-lockfile && (pnpm run build || true) && pnpm prune --prod --config.confirmModulesPurge=false; \
+        else \
+            npm install --no-audit --no-fund && (npm run build || true) && npm prune --production; \
+        fi && \
+        cd - > /dev/null; \
     done
 
 # Verify extensions are present and loadable
@@ -98,15 +107,23 @@ You are running inside a specialized Gemini CLI sandbox.\n\
 - **OS**: Ubuntu 22.04\n\
 - **User**: gemini (with passwordless sudo)\n\
 - **Package Manager**: Homebrew (brew) is available and preferred.\n\
+- **Extensions**: Pre-installed Gemini extensions include `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `security`, and `co-researcher`.\n\
 - **Core Tools**: Gemini CLI, jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig, zip, unzip.\n\
 - **Scripting**: Python 3.11 is available.\n\
 \n\
 ## Language Specifics\n\
 - This sandbox includes: Gemini CLI, Base Tools\n\
 \n\
+## Security & Isolation\n\
+- **Strict Boundaries**: You MUST NOT attempt to access or read any host directories directly using absolute paths.\n\
+- **Shared Workspace**: You are strictly confined to the currently shared directory.\n\
+- **Volume Guidance**: If you need more data, provide the user with an `export SANDBOX_MOUNTS` example. Do not ask for direct access.\n\
+- **WORKSPACE Variable**: Respect the `WORKSPACE` environment variable if set by the user for shared project roots.\n\
+\n\
 ## Instructions\n\
-1. Use '\''brew install <package>'\'' if you need more tools.\n\
-2. Prefer Python 3.11 for automation scripts.\n' > /home/gemini/.gemini/GEMINI.md
+1. Use '\''gemini extensions list'\'' to see available extensions and their skills.\n\
+2. Use '\''brew install <package>'\'' if you need more tools.\n\
+3. Prefer Python 3.11 for automation scripts.\n' > /home/gemini/.gemini/GEMINI.md
 
 RUN git config --global user.name "Gemini CLI" && \
     git config --global user.email "gemini@local.sandbox"

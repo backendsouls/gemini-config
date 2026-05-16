@@ -2,8 +2,6 @@
 
 This repository contains various Docker-based sandbox environments for Gemini CLI tasks. Each sandbox is equipped with Homebrew for package management and common development tools.
 
-This project is vibe coded :)
-
 ## Sandbox Variants
 
 | Sandbox | Description | Key Tools |
@@ -65,12 +63,26 @@ You can use these sandboxes directly with the Gemini CLI by setting the followin
 ```bash
 export GEMINI_SANDBOX=docker
 export GEMINI_SANDBOX_IMAGE=gemini-sandbox-all
+
+# Optional: Set a dedicated workspace directory to share with the sandbox
+export WORKSPACE=/path/to/your/projects
+
+# Optional: Share additional host directories as volumes
+export SANDBOX_MOUNTS="/host/data:/container/data:ro"
+
 gemini -s
 ```
 
 Replace `gemini-sandbox-all` with any other specific language image (e.g., `gemini-sandbox-python`) as needed.
 
 See [EXTENSIONS.md](./EXTENSIONS.md) for details on pre-installed Gemini extensions.
+
+## Security & Isolation
+
+1. **Host Independence**: The agent is strictly prohibited from accessing or requesting host paths outside the mounted volumes.
+2. **Strict Boundaries**: All tools (Node, NPM, Python, etc.) are pre-installed in the image to ensure total isolation from host runtimes.
+3. **Volume-Based Access**: If additional data is needed, the agent will guide you on how to share it using `SANDBOX_MOUNTS` instead of accessing it directly.
+4. **WORKSPACE Environment Variable**: Use this to define the root of your shared projects. The agent uses this as its primary operational context.
 
 ## Design Philosophy
 
