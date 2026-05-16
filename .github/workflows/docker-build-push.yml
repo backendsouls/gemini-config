@@ -9,6 +9,7 @@ on:
 jobs:
   build-and-push-base:
     runs-on: ubuntu-latest
+    environment: gha
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,6 +38,7 @@ jobs:
   build-and-push-others:
     needs: build-and-push-base
     runs-on: ubuntu-latest
+    environment: gha
     strategy:
       matrix:
         language: [python, javascript, go, rust, ruby, java, php, lua, cpp, all]
