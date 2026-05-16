@@ -91,7 +91,9 @@ A GitHub Actions workflow is provided in `.github/workflows/docker-build-push.ym
 ### Prerequisites
 To use this workflow, you must set the following secrets in your GitHub repository:
 - `DOCKER_USERNAME`: Your Docker Hub username.
-- `DOCKER_PASSWORD`: Your Docker Hub personal access token (PAT).
+- `DOCKER_TOKEN`: A Docker Hub **Personal Access Token (PAT)**.
+
+**Note**: It is highly recommended to use a PAT instead of your account password for security. You can generate one in your [Docker Hub Account Settings](https://hub.docker.com/settings/security).
 
 The workflow builds the `base` image first and then builds all language-specific images in parallel, using the freshly built base image.
 
