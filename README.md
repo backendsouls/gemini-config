@@ -84,6 +84,17 @@ See [EXTENSIONS.md](./EXTENSIONS.md) for details on pre-installed Gemini extensi
 3. **Volume-Based Access**: If additional data is needed, the agent will guide you on how to share it using `SANDBOX_MOUNTS` instead of accessing it directly.
 4. **WORKSPACE Environment Variable**: Use this to define the root of your shared projects. The agent uses this as its primary operational context.
 
+## CI/CD (GitHub Actions)
+
+A GitHub Actions workflow is provided in `.github/workflows/docker-build-push.yml` to automatically build and push images to Docker Hub on every push to the `main` branch.
+
+### Prerequisites
+To use this workflow, you must set the following secrets in your GitHub repository:
+- `DOCKER_USERNAME`: Your Docker Hub username.
+- `DOCKER_PASSWORD`: Your Docker Hub personal access token (PAT).
+
+The workflow builds the `base` image first and then builds all language-specific images in parallel, using the freshly built base image.
+
 ## Design Philosophy
 
 1. **Isolation**: Each environment is self-contained.

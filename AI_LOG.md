@@ -159,3 +159,17 @@ This log records significant actions, architectural decisions, and reasoning pat
   - **Rationale**: Prevents `npm` from trying to install dependencies in sub-packages of monorepos that use the `workspace:` protocol, which `npm` does not support. Monorepos are now handled correctly at their root by `pnpm`.
 - **Decision**: Force non-interactive mode for `pnpm`.
   - **Rationale**: Docker builds are non-interactive; `pnpm` must be configured to skip TTY-based confirmations to complete the pruning process successfully.
+
+## [2026-05-16] Implemented CI/CD with GitHub Actions
+
+### Actions:
+- Created .github/workflows/docker-build-push.yml to automate Docker image builds.
+- Configured the workflow to push images to Docker Hub on pushes to main.
+- Updated all language-specific Dockerfiles to use the BASE_IMAGE build argument.
+- Documented GitHub repository secrets requirement (DOCKER_USERNAME, DOCKER_PASSWORD) in README.md.
+
+### Decisions:
+- **Decision**: Use a two-stage job structure.
+  - **Rationale**: Building the base image first and then parallelizing the language-specific builds optimizes CI time while ensuring all images use the exact same base layer.
+- **Decision**: Use build arguments for the base image reference.
+  - **Rationale**: This allows the CI/CD pipeline to inject the Docker Hub-prefixed image name (username/gemini-sandbox-base) without hardcoding it in the source files, maintaining local build compatibility.
