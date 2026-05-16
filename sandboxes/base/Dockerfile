@@ -8,7 +8,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV HOMEBREW_NO_ANALYTICS=1 \
     GOTELEMETRY=off \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    GEMINI_TELEMETRY_ENABLED=false
+    GEMINI_TELEMETRY_ENABLED=false \
+    HOME=/home/gemini \
+    GEMINI_API_KEY=dummy
 
 # Install essential dependencies for Homebrew and general use
 RUN apt-get update && apt-get install -y \
@@ -83,7 +85,7 @@ RUN mkdir -p /home/gemini/.gemini/extensions && \
     done
 
 # Verify extensions are present and loadable
-RUN GEMINI_API_KEY=dummy gemini --debug --list-extensions
+RUN gemini --debug --list-extensions
 
 RUN tldr --update
 
