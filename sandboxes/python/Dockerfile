@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # Python Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Update Gemini configuration file
 RUN printf '# Gemini CLI Sandbox Environment\n\

@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # Java Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Install SDKMAN, Maven, and Gradle
 RUN curl -s "https://get.sdkman.io" | bash && \

@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # Go Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Install Go
 RUN brew install go

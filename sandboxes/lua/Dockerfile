@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # Lua Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Install Lua and Luarocks
 RUN brew install lua luarocks

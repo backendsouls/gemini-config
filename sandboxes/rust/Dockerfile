@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # Rust Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Install Rust
 RUN brew install rust

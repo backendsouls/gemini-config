@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # All-in-One Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Install SDKMAN, Maven, and Gradle
 ENV SDKMAN_DIR="/home/gemini/.sdkman"

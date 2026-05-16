@@ -1,5 +1,6 @@
+ARG BASE_IMAGE=gemini-sandbox-base
 # PHP Sandbox for Gemini CLI
-FROM gemini-sandbox-base
+FROM ${BASE_IMAGE}
 
 # Install PHP
 RUN brew install php
