@@ -4,21 +4,21 @@ This log records significant actions, architectural decisions, and reasoning pat
 
 ---
 
-## [2026-05-17] Python 3.13 Upgrade & Registry Parameterization
+## [2026-05-17] Security Hardening: Modular Egress Control
 
 ### Actions:
-- **Python Upgrade**: Switched the base image to official `python:3.13-slim` to provide an optimized Python 3.13 environment across all sandboxes.
-- **CI/CD Flexibility**: Refactored `.github/workflows/docker-build-push.yml` to use a configurable `DOCKER_NAMESPACE` variable. This allows image distribution under custom organizations (or fallback to the login username) via GitHub repository variables.
-- **Documentation Synchronization**: Updated all 22 sandbox documentation files and internal templates to reflect the move to Python 3.13.
-- **Namespace Documentation**: Added instructions to the root `README.md` on how to use the `DOCKER_NAMESPACE` variable for customization.
+- **Network Hardening Utility**: Developed and implemented `harden-network` (located at `/usr/local/bin/harden-network`), a tool inspired by the `libops/cli-sandbox` security model.
+- **Firewall Integration**: Pre-installed `iptables` in the `base` sandbox image to support kernel-level egress filtering.
+- **Optional Security Mode**: Configured the environment to allow users/agents to toggle strict egress rules (`on`/`off`). In "on" mode, it restricts traffic to standard web ports (80/443) and DNS (53), blocking non-standard exfiltration attempts.
+- **Documentation Update**: Synchronized all 11 sandbox `README.md` and `templates/GEMINI.md` files to instruct users and agents on how to leverage the new hardening utility.
 
 ### Decisions:
-- **Decision**: Use official `python:3.13-slim` base.
-  - **Rationale**: It provides a native, pre-optimized Python 3.13 environment on the familiar Debian foundation, ensuring the smallest possible footprint while meeting the version requirement.
-- **Decision**: Implement `DOCKER_NAMESPACE` with secret fallback.
-  - **Rationale**: Provides maximum flexibility for multi-tenant or organizational distribution without breaking existing individual setups.
+- **Decision**: Use "Infrastructure-only" hardening by default.
+  - **Rationale**: While strict security is a priority, forced `iptables` at build time would break the polyglot development experience (NPM/Maven installs). Providing the utility and documentation enables "Enterprise Security" on-demand without sacrificing utility.
+- **Decision**: Require `--cap-add=NET_ADMIN`.
+  - **Rationale**: This is a standard Docker requirement for container-level firewall management. We prioritize kernel-level protection over user-space shims (like proxies) which are easier to bypass.
 
 ---
 
-## [2026-05-17] Node.js 24 Upgrade & Identity Correction
+## [2026-05-17] Python 3.13 Upgrade & Registry Parameterization
 ... rest of file ...

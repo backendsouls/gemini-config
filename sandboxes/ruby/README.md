@@ -25,6 +25,7 @@ You can explore these capabilities using `gemini extensions list`.
 - **Tool Installation**: Prefer `sudo apt-get install` for temporary tools to keep the environment clean and reproducible.
 - **Resilient Scripts**: Leverage the `retry` utility (pre-installed in `scripts/`) for resilient network operations in your automation scripts.
 - **Discovery**: Explore extension capabilities and documentation with `gemini extensions list`.
+- **Network Security**: Secure your session by running `sudo harden-network on` to restrict outbound traffic to standard web ports (requires Docker `--cap-add=NET_ADMIN`).
 - **Ruby specifics**: Use `gem install <gem>` for additional Ruby-based tools.
 
 ## Security & Isolation

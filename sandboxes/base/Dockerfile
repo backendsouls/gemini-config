@@ -43,7 +43,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl git sudo procps file wget dnsutils zip unzip sed \
     ripgrep fd-find jq bat fzf vim htop tree shellcheck \
-    nodejs npm \
+    iptables nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Binary compatibility links
@@ -67,6 +67,8 @@ RUN useradd -m -s /bin/bash gemini && \
     echo "gemini ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 COPY scripts/common.sh /usr/local/bin/common.sh
 COPY scripts/retry.sh /usr/local/bin/retry.sh
+COPY scripts/harden-network.sh /usr/local/bin/harden-network
+RUN chmod +x /usr/local/bin/harden-network
 
 USER gemini
 WORKDIR /home/gemini

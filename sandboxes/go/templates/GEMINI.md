@@ -32,3 +32,4 @@ You are running inside a specialized Gemini CLI sandbox.
 - Use `sudo apt-get install` for on-demand tools.
 - Use the `retry` utility for resilient scripts.
 - Run `gemini extensions list` to explore capabilities.
+- **Network Security**: For sensitive tasks, use `sudo harden-network on` to restrict outbound traffic (requires `--cap-add=NET_ADMIN`). Use `sudo harden-network off` to restore full access.
