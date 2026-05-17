@@ -10,7 +10,7 @@ This is a comprehensive sandbox environment containing all supported runtimes an
   - Java (OpenJDK via SDKMAN!)
   - Go, Rust, Ruby, PHP, Lua
 - **Build & Debug**: `cmake`, `gdb`, `build-essential`
-- **Package Managers**: Homebrew (`brew`), NVM, SDKMAN!
+- **Package Managers**: `apt` (Debian Native), NVM, SDKMAN!
 
 ## Pre-installed Extensions
 This sandbox comes with several pre-installed Gemini extensions:

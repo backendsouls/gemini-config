@@ -35,14 +35,13 @@ LABEL description="Base sandbox image for Gemini CLI"
 
 # Environment configuration
 ENV DEBIAN_FRONTEND=noninteractive \
-    HOMEBREW_NO_ANALYTICS=1 \
-    HOMEBREW_INSTALL_FROM_API=1 \
     HOME=/home/gemini \
-    PATH="/home/linuxbrew/.linuxbrew/bin:/home/gemini/.npm-global/bin:${PATH}"
+    PATH="/home/gemini/.npm-global/bin:${PATH}"
 
-# Install core system dependencies
+# Install core system dependencies (minimal)
+# Note: build-essential is NOT installed here to save space
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential curl git sudo procps file wget dnsutils zip unzip sed \
+    curl git sudo procps file wget dnsutils zip unzip sed \
     ripgrep fd-find jq bat fzf vim htop tree shellcheck \
     python3 python3-pip nodejs npm \
     && rm -rf /var/lib/apt/lists/*
@@ -52,19 +51,25 @@ RUN ln -s /usr/bin/batcat /usr/bin/bat && \
     ln -s /usr/bin/fdfind /usr/bin/fd && \
     ln -s /usr/bin/python3 /usr/bin/python
 
+# Install yq and htmlq via direct binary download (Architecture-aware)
+RUN ARCH=$(dpkg --print-architecture) && \
+    if [ "$ARCH" = "amd64" ]; then YQ_ARCH="linux_amd64"; HTMLQ_ARCH="x86_64-linux"; \
+    elif [ "$ARCH" = "arm64" ]; then YQ_ARCH="linux_arm64"; HTMLQ_ARCH="arm64-linux"; \
+    else echo "Unsupported architecture: $ARCH" && exit 1; fi && \
+    curl -L "https://github.com/mikefarah/yq/releases/latest/download/yq_${YQ_ARCH}" -o /usr/local/bin/yq && \
+    chmod +x /usr/local/bin/yq && \
+    HTMLQ_VERSION=$(curl -s "https://api.github.com/repos/mgdm/htmlq/releases/latest" | jq -r .tag_name) && \
+    curl -L "https://github.com/mgdm/htmlq/releases/download/${HTMLQ_VERSION}/htmlq-${HTMLQ_ARCH}.tar.gz" | tar xz -C /usr/local/bin && \
+    chmod +x /usr/local/bin/htmlq
+
 # User and shared utilities setup
 RUN useradd -m -s /bin/bash gemini && \
     echo "gemini ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 COPY scripts/common.sh /usr/local/bin/common.sh
+COPY scripts/retry.sh /usr/local/bin/retry.sh
 
 USER gemini
 WORKDIR /home/gemini
-
-# Install Homebrew
-RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
-    brew install yq htmlq && \
-    brew cleanup && \
-    rm -rf /home/gemini/.cache/Homebrew
 
 # Install Gemini CLI and package managers
 RUN mkdir -p /home/gemini/.npm-global && \

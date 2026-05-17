@@ -3,7 +3,7 @@
 This sandbox provides a specialized environment for Ruby development within the Gemini CLI. It inherits from the Debian-based `gemini-sandbox-base`.
 
 ## Included Tools
-- **Runtimes**: Ruby (latest via Brew)
+- **Runtimes**: Ruby (Native via apt)
 - **Package Manager**: Bundler, RubyGems
 - **Base Utilities**: `jq`, `fzf`, `ripgrep` (rg), `fd`, `bat`, `tree`, `vim`, `htop`, `curl`, `git`
 
@@ -28,3 +28,4 @@ docker run -it gemini-sandbox-ruby
 1. Use 'gemini extensions list' to see available extensions and their skills.
 2. Use 'brew install <package>' if you need more Ruby-related tools or libraries.
 3. Prefer Python 3.11 for automation scripts even within this Ruby environment.
+ronment.

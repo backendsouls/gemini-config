@@ -5,7 +5,7 @@ A specialized environment for Java development, built on **Debian (Stable Slim)*
 ## Included Tools
 - **Java Development**: Java (OpenJDK via SDKMAN!), Maven, Gradle
 - **Base Utilities**: Includes all core and CLI utilities from the `base` sandbox (e.g., `ripgrep`, `fd`, `jq`, `bat`).
-- **Package Managers**: Homebrew (`brew`), SDKMAN!
+- **Package Managers**: `apt` (Debian Native), SDKMAN!
 
 ## Pre-installed Extensions
 This sandbox comes with several pre-installed Gemini extensions:

@@ -5,7 +5,7 @@ A specialized environment for JavaScript and TypeScript development, built on **
 ## Included Tools
 - **JavaScript Development**: Node.js (via NVM), npm, pnpm, TypeScript
 - **Base Utilities**: Includes all core and CLI utilities from the `base` sandbox (e.g., `ripgrep`, `fd`, `jq`, `bat`).
-- **Package Managers**: Homebrew (`brew`), NVM
+- **Package Managers**: `apt` (Debian Native), NVM
 
 ## Pre-installed Extensions
 This sandbox comes with several pre-installed Gemini extensions:

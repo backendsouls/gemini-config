@@ -25,5 +25,5 @@ docker run -it gemini-sandbox-rust
 
 ## Instructions for Gemini
 1. Use 'gemini extensions list' to see available extensions and their skills.
-2. Use 'cargo install <crate>' or 'brew install <package>' for additional tools.
+2. Use 'cargo install <crate>' or 'sudo apt-get install <package>' for additional tools.
 3. Prefer Python 3.11 for automation scripts even within this Rust environment.

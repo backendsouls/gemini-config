@@ -5,7 +5,7 @@ A specialized environment for Python development, built on **Debian (Stable Slim
 ## Included Tools
 - **Python Development**: Python 3.11, `pip`, `venv`
 - **Base Utilities**: Includes all core and CLI utilities from the `base` sandbox (e.g., `ripgrep`, `fd`, `jq`, `bat`).
-- **Package Managers**: Homebrew (`brew`)
+- **Package Managers**: `apt` (Debian Native)
 
 ## Pre-installed Extensions
 This sandbox comes with several pre-installed Gemini extensions:
