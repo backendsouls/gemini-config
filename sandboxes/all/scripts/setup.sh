@@ -16,3 +16,11 @@ ln -sf "$(dirname "$(dirname "$(nvm which 20)")")" "$NVM_DIR/current"
 
 log_info "Installing Java 17 via SDKMAN..."
 retry sdk install java 17.0.10-tem
+
+log_info "Aggressively clearing runtime caches..."
+nvm cache clear
+sdk flush archives
+sdk flush temp
+npm cache clean --force
+rm -rf /home/gemini/.sdkman/archives/*
+rm -rf /home/gemini/.sdkman/tmp/*

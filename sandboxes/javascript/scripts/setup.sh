@@ -13,3 +13,7 @@ nvm use 20
 
 log_info "Installing TypeScript utilities..."
 retry npm install -g typescript ts-node
+
+log_info "Clearing NPM and NVM caches..."
+npm cache clean --force
+nvm cache clear

@@ -22,7 +22,9 @@ RUN npm install -g pnpm && \
         npm install --no-audit --no-fund && (npm run build || true) && npm prune --production; \
     fi && \
     cd - > /dev/null; \
-    done
+    done && \
+    find /build -name ".git" -type d -exec rm -rf {} + && \
+    npm cache clean --force
 
 # Stage 2: Final Image
 FROM debian:stable-slim
@@ -61,12 +63,14 @@ WORKDIR /home/gemini
 # Install Homebrew
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
     brew install yq htmlq && \
-    brew cleanup
+    brew cleanup && \
+    rm -rf /home/gemini/.cache/Homebrew
 
 # Install Gemini CLI and package managers
 RUN mkdir -p /home/gemini/.npm-global && \
     npm config set prefix '/home/gemini/.npm-global' && \
-    npm install -g @google/gemini-cli@latest pnpm tldr
+    npm install -g @google/gemini-cli@latest pnpm tldr && \
+    npm cache clean --force
 
 # Install Extensions
 COPY --chown=gemini:gemini --from=extension-builder /build /home/gemini/.gemini/extensions
