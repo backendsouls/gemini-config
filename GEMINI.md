@@ -7,7 +7,7 @@ This workspace is designed to manage and build various Docker-based sandbox envi
 - **Architecture**: A hierarchical Docker structure is used. All language sandboxes inherit from `sandboxes/base`.
 - **Base Image**: The `base` sandbox is built on Debian (Stable Slim).
 - **Package Managers**: 
-  - **Homebrew (`brew`)**: Primary manager for CLI tools.
+  - **APT (`apt-get`)**: Primary manager for system tools and libraries.
   - **SDKMAN!**: Used in Java sandboxes for JDKs, Maven, and Gradle.
   - **NVM**: Used in JavaScript sandboxes for Node.js versions.
 - **User**: The default user in all sandboxes is `gemini` with `sudo` access.
@@ -68,7 +68,7 @@ export WORKSPACE=/path/to/your/projects
 
 ## Instructions for Gemini
 1. **Strict Isolation**: Never attempt to access paths outside the sandbox. If you need more data, provide the user with a `docker run` or `export SANDBOX_MOUNTS` command example.
-2. **Tool Discovery**: If you need a tool that isn't installed, check if it's available via `brew`.
+2. **Tool Discovery**: If you need a tool that isn't installed, check if it's available via `apt`.
 3. **Scripting**: Prefer Python 3.11 for complex logic or automation tasks within the sandboxes.
-4. **Environment**: When executing commands, assume the paths for Homebrew (`/home/linuxbrew/.linuxbrew/bin`) are already in the `PATH`.
+4. **Environment**: Global Node.js packages are located in `/home/gemini/.npm-global/bin`.
 5. **Context**: Each sandbox directory contains a `README.md` with specific details about that environment's language and configuration.

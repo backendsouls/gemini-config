@@ -1,20 +1,20 @@
 # Gemini CLI Sandbox Environments
 
-This repository contains various Docker-based sandbox environments for Gemini CLI tasks. Each sandbox is equipped with Homebrew for package management and common development tools.
+This repository contains various Docker-based sandbox environments for Gemini CLI tasks. Each sandbox is equipped with native package management and common development tools.
 
 ## Sandbox Variants
 
 | Sandbox | Description | Key Tools |
 |---|-|---|
-| [Base](./sandboxes/base) | Essential tools only | `jq`, `fzf`, `ripgrep (rg)`, `fd`, `bat`, `vim`, `sed` |
+| [Base](./sandboxes/base) | Essential tools only | `jq`, `fzf`, `ripgrep (rg)`, `fd`, `bat`, `vim`, `sed`, `yq`, `htmlq` |
 | [Python](./sandboxes/python) | Python optimized | Python 3.11, Base Tools |
 | [JavaScript](./sandboxes/javascript) | JS/TS optimized | Node.js (NVM), TypeScript, Python 3.11 |
-| [Go](./sandboxes/go) | Go optimized | Go, Python 3.11, Base Tools |
-| [Rust](./sandboxes/rust) | Rust optimized | Rust, Python 3.11, Base Tools |
-| [Ruby](./sandboxes/ruby) | Ruby optimized | Ruby, Python 3.11, Base Tools |
+| [Go](./sandboxes/go) | Go optimized | Go (Native), Python 3.11, Base Tools |
+| [Rust](./sandboxes/rust) | Rust optimized | Rust (Minimal), Python 3.11, Base Tools |
+| [Ruby](./sandboxes/ruby) | Ruby optimized | Ruby (Native), Python 3.11, Base Tools |
 | [Java](./sandboxes/java) | Java optimized | Java (SDKMAN), Maven, Gradle, Python 3.11 |
-| [PHP](./sandboxes/php) | PHP optimized | PHP, Python 3.11, Base Tools |
-| [Lua](./sandboxes/lua) | Lua optimized | Lua, Luarocks, Python 3.11 |
+| [PHP](./sandboxes/php) | PHP optimized | PHP (Native), Python 3.11, Base Tools |
+| [Lua](./sandboxes/lua) | Lua optimized | Lua (Native), Python 3.11 |
 | [C/C++](./sandboxes/cpp) | C/C++ optimized | build-essential, CMake, GDB, Python 3.11 |
 | [All](./sandboxes/all) | Everything included | All of the above |
 
@@ -49,11 +49,11 @@ docker run -it gemini-python
 
 ## Package Management
 
-All sandboxes use **Homebrew** (`brew`) as the primary package manager. This allows for consistent and up-to-date tool installations across environments.
+All sandboxes use **APT** (`apt-get`) as the primary package manager. This allows for consistent and reliable tool installations across environments.
 
 Example of installing a new tool inside a running container:
 ```bash
-brew install htop
+sudo apt-get update && sudo apt-get install <package>
 ```
 
 ## Usage with Gemini CLI
@@ -86,7 +86,7 @@ See [EXTENSIONS.md](./EXTENSIONS.md) for details on pre-installed Gemini extensi
 
 ## CI/CD (GitHub Actions)
 
-A GitHub Actions workflow is provided in `.github/workflows/docker-build-push.yml` to automatically build and push images to Docker Hub on every push to the `main` branch.
+A GitHub Actions workflow is provided in `.github/workflows/docker-build-push.yml` to automate Docker image builds.
 
 ### Prerequisites
 To use this workflow, you must set the following secrets in your GitHub repository:
@@ -100,5 +100,5 @@ The workflow builds the `base` image first and then builds all language-specific
 ## Design Philosophy
 
 1. **Isolation**: Each environment is self-contained.
-2. **Consistency**: Homebrew ensures tools are the same across sandboxes.
+2. **Efficiency**: Native package management and minimal installers ensure small image sizes and fast build times.
 3. **Gemini Ready**: Python is included in all language sandboxes to support Gemini-driven scripting and automation.
