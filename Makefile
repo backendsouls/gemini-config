@@ -1,13 +1,17 @@
 # Makefile for Gemini CLI Sandbox Environments
 
-.PHONY: all build-all base build-base python javascript go rust ruby java php clean help
+# Docker Namespace (Registry/Username)
+NAMESPACE ?= backendsouls
+IMAGE_PREFIX = gemini-sandbox
+
+.PHONY: all build-all base build-base python javascript go rust ruby java php clean help push-all
 
 # Default target
 all: help
 
 # Help command
 help:
-	@echo "Usage: make [target]"
+	@echo "Usage: make [target] [NAMESPACE=your-namespace]"
 	@echo ""
 	@echo "Targets:"
 	@echo "  base         Build base sandbox"
@@ -23,52 +27,67 @@ help:
 	@echo "  cpp          Build c/c++ sandbox"
 	@echo "  all-in-one   Build the 'all' sandbox with everything"
 	@echo "  build-all    Build ALL sandboxes sequentially"
+	@echo "  push-all     Push ALL built sandboxes to the namespace"
 	@echo "  clean        Remove all gemini-sandbox images"
 
 # Individual build targets
 base:
-	docker build -t gemini-sandbox-base sandboxes/base
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-base sandboxes/base
 
 build-base: base
 
 python: base
-	docker build -t gemini-sandbox-python sandboxes/python
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-python sandboxes/python
 
 javascript: base
-	docker build -t gemini-sandbox-js sandboxes/javascript
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-js sandboxes/javascript
 
 go: base
-	docker build -t gemini-sandbox-go sandboxes/go
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-go sandboxes/go
 
 rust: base
-	docker build -t gemini-sandbox-rust sandboxes/rust
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-rust sandboxes/rust
 
 ruby: base
-	docker build -t gemini-sandbox-ruby sandboxes/ruby
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-ruby sandboxes/ruby
 
 java: base
-	docker build -t gemini-sandbox-java sandboxes/java
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-java sandboxes/java
 
 php: base
-	docker build -t gemini-sandbox-php sandboxes/php
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-php sandboxes/php
 
 lua: base
-	docker build -t gemini-sandbox-lua sandboxes/lua
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-lua sandboxes/lua
 
 cpp: base
-	docker build -t gemini-sandbox-cpp sandboxes/cpp
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-cpp sandboxes/cpp
 
 all-in-one: base
-	docker build -t gemini-sandbox-all sandboxes/all
+	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-all sandboxes/all
 
 # Upgrade Gemini CLI to the latest version across all images
 upgrade:
-	docker build --no-cache --pull -t gemini-sandbox-base sandboxes/base
-	make all-in-one
+	docker build --no-cache --pull -t $(NAMESPACE)/$(IMAGE_PREFIX)-base sandboxes/base
+	make all-in-one NAMESPACE=$(NAMESPACE)
 
 # Build all sandboxes
 build-all: base python javascript go rust ruby java php lua cpp all-in-one
 
+# Push all sandboxes
+push-all:
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-base
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-python
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-js
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-go
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-rust
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-ruby
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-java
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-php
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-lua
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-cpp
+	docker push $(NAMESPACE)/$(IMAGE_PREFIX)-all
+
 # Clean targets
 clean:
-	docker rmi $$(docker images 'gemini-sandbox-*' -q) || true
+	docker rmi $$(docker images '$(NAMESPACE)/$(IMAGE_PREFIX)-*' -q) || true

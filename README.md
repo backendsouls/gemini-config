@@ -28,9 +28,20 @@ You can build the sandboxes using the provided `Makefile` or manually via Docker
 
 ### Using Make (Recommended)
 
-Build a specific sandbox:
+Build a specific sandbox (default namespace: `backendsouls`):
 ```bash
 make python
+```
+
+Build for a custom namespace:
+```bash
+make python NAMESPACE=my-custom-org
+```
+
+Build and push all sandboxes:
+```bash
+make build-all NAMESPACE=my-custom-org
+make push-all NAMESPACE=my-custom-org
 ```
 
 Build all sandboxes:
