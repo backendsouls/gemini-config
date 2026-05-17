@@ -30,7 +30,7 @@ RUN npm install -g pnpm && \
 FROM python:3.13-slim
 
 # Build-time metadata
-LABEL maintainer="Gemini CLI Team"
+LABEL maintainer="BackendSouls Team"
 LABEL description="Opinionated unofficial base sandbox image for Gemini CLI"
 
 # Environment configuration
@@ -83,7 +83,7 @@ COPY --chown=gemini:gemini --from=extension-builder /build /home/gemini/.gemini/
 # Configuration templates
 COPY --chown=gemini:gemini templates/GEMINI.md /home/gemini/.gemini/GEMINI.md
 RUN mkdir -p /home/gemini/.gemini && \
-    git config --global user.name "Gemini CLI" && \
+    git config --global user.name "BackendSouls" && \
     git config --global user.email "gemini@local.sandbox" && \
     echo '{"privacy": {"usageStatisticsEnabled": false}}' > /home/gemini/.gemini/settings.json
 

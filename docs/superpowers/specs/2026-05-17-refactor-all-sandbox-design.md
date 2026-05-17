@@ -1,7 +1,7 @@
 # Design Doc: Refactor All-in-One Sandbox Dockerfile
 
 **Status:** Draft
-**Author:** Gemini CLI
+**Author:** BackendSouls
 **Date:** 2026-05-17
 
 ## 1. Goal
