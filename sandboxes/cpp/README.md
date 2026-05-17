@@ -1,4 +1,5 @@
 # C++ Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 A specialized environment for C/C++ development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox.
 

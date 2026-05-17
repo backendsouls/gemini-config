@@ -1,4 +1,5 @@
 # Go Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 A specialized environment for Go development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox.
 

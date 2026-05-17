@@ -1,4 +1,5 @@
 # All-in-One Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 This is a comprehensive sandbox environment containing all supported runtimes and tools in a single image. It is built on **Debian (Stable Slim)** and inherits from the `base` sandbox.
 

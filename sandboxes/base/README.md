@@ -1,11 +1,12 @@
 # Base Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 This is the foundation for all Gemini CLI specialized sandboxes. It is built on **Debian (Stable Slim)** and includes a comprehensive suite of essential development and diagnostic tools.
 
 ## Included Tools
 - **Core Utilities**: `curl`, `git`, `sudo`, `procps`, `file`, `wget`, `dnsutils`, `zip`, `unzip`, `sed`
 - **CLI Utilities**: `ripgrep` (rg), `fd`, `jq`, `yq`, `htmlq`, `bat`, `fzf`, `vim`, `htop`, `tree`, `shellcheck`, `tldr`
-- **Runtimes**: Python 3.11, Node.js, npm, pnpm
+- **Runtimes**: Python 3.11, Node.js 24, npm, pnpm
 - **Package Managers**: `apt` (Debian Native)
 
 ## Pre-installed Extensions

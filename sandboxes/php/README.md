@@ -1,4 +1,5 @@
 # PHP Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 A specialized environment for PHP development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox.
 

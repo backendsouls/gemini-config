@@ -1,4 +1,5 @@
 # Java Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 A specialized environment for Java development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox. It uses SDKMAN! for managing JDKs and build tools.
 

@@ -1,4 +1,5 @@
 # Rust Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 This sandbox provides a specialized environment for Rust development within the Gemini CLI. It inherits from the **Debian (Stable Slim)** based `gemini-sandbox-base`.
 

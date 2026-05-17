@@ -1,4 +1,5 @@
 # Lua Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 A specialized environment for Lua development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox.
 

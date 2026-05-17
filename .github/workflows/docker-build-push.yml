@@ -106,5 +106,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
           repository: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.image }}
-          short-description: "Official Gemini CLI sandbox for ${{ matrix.image }}. High-performance, Debian-based, pre-configured with essential extensions."
+          short-description: "Opinionated unofficial Gemini CLI sandbox for ${{ matrix.image }}. High-performance, Debian-based, pre-configured with essential extensions."
           readme-filepath: ./sandboxes/${{ matrix.image == 'js' && 'javascript' || matrix.image }}/README.md

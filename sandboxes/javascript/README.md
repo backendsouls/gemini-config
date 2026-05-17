@@ -1,4 +1,5 @@
 # JavaScript Sandbox
+**Opinionated unofficial Gemini CLI sandbox**
 
 A specialized environment for JavaScript and TypeScript development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox. It uses NVM for managing Node.js versions.
 

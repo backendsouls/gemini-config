@@ -1,5 +1,5 @@
 # Stage 1: Build Extensions
-FROM node:20-bookworm AS extension-builder
+FROM node:24-bookworm AS extension-builder
 RUN apt-get update && apt-get install -y git
 WORKDIR /build
 
@@ -31,7 +31,7 @@ FROM debian:stable-slim
 
 # Build-time metadata
 LABEL maintainer="Gemini CLI Team"
-LABEL description="Base sandbox image for Gemini CLI"
+LABEL description="Opinionated unofficial base sandbox image for Gemini CLI"
 
 # Environment configuration
 ENV DEBIAN_FRONTEND=noninteractive \

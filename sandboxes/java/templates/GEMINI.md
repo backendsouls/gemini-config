@@ -1,4 +1,5 @@
 # Gemini CLI Sandbox Environment
+**Opinionated unofficial Gemini CLI sandbox**
 You are running inside a specialized Gemini CLI sandbox.
 
 ## Environment Capabilities

@@ -4,24 +4,20 @@ This log records significant actions, architectural decisions, and reasoning pat
 
 ---
 
-## [2026-05-17] Enhanced Metadata & Professional Documentation
+## [2026-05-17] Node.js 24 Upgrade & Identity Correction
 
 ### Actions:
-- **CI/CD Modernization**: Upgraded all GitHub Actions in `.github/workflows/docker-build-push.yml` to their latest versions to address Node.js 20 deprecation.
-- **Rich Docker Metadata**: Integrated `docker/metadata-action@v6` to automatically generate dynamic tags (branch, sha, PR, latest) and OCI labels for all images.
-- **Meaningful Documentation**:
-    - Enriched all 11 sandbox `README.md` files with detailed extension descriptions and a "Best Practices" section.
-    - Standardized `templates/GEMINI.md` to provide the same level of detailed guidance to agents running inside the containers.
-    - Added image metadata (OS, Architecture, Repository link) to all READMEs.
-- **Refined Docker Hub Descriptions**: Updated the CI/CD pipeline to push specific, informative "Short Descriptions" for each image variant.
+- **Sandbox Upgrade**: Upgraded Node.js from version 20 to 24 across all sandbox environments (`base` extension-builder, `all` runtime, and `javascript` setup).
+- **Identity Correction**: Rebranded all documentation (`README.md`, `GEMINI.md`) and Docker Hub short descriptions to correctly identify the sandboxes as **"Opinionated unofficial Gemini CLI sandboxes"** instead of "Official".
+- **Documentation Synchronization**: Batch updated all 11 sandbox variants to reflect the new Node.js standard and unofficial status.
 
 ### Decisions:
-- **Decision**: Use `docker/metadata-action`.
-  - **Rationale**: It's the industry standard for managing Docker tags and labels in GitHub Actions, ensuring consistent and meaningful versioning.
-- **Decision**: Align internal and external documentation.
-  - **Rationale**: Ensuring that both the user (reading the README) and the agent (reading `GEMINI.md`) have the same high-quality context leads to better collaboration and more efficient use of the sandbox.
+- **Decision**: Align local Node.js version with CI/CD.
+  - **Rationale**: GitHub Actions are moving to Node 24; upgrading the local sandboxes ensures development/production parity and addresses deprecation warnings.
+- **Decision**: Clarify project status as "Unofficial".
+  - **Rationale**: Accuracy in branding is critical for user trust and avoids confusion regarding official Google/Gemini support.
 
 ---
 
-## [2026-05-17] Major Size Optimization: The "Death of Brew"
+## [2026-05-17] Enhanced Metadata & Professional Documentation
 ... rest of file ...
