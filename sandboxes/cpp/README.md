@@ -34,13 +34,18 @@ You can explore these capabilities using `gemini extensions list`.
 ## Usage
 Build the image:
 ```bash
-docker build -t gemini-sandbox-cpp .
+docker build -t backendsouls/gemini-sandbox-cpp .
 ```
 
 Run the container:
 ```bash
-docker run -it gemini-sandbox-cpp
+docker run -it backendsouls/gemini-sandbox-cpp
 ```
+
+## Available Tags
+- `latest`: Latest stable build.
+- `backendsouls`: Team-verified alias.
+- `python3.13-node24`: Runtime-versioned tag.
 
 ## Image Metadata
 - **Base OS**: Debian (Stable Slim)

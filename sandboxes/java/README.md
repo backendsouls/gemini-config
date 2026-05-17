@@ -34,15 +34,20 @@ You can explore these capabilities using `gemini extensions list`.
 ## Usage
 Build the image:
 ```bash
-docker build -t gemini-sandbox-java .
+docker build -t backendsouls/gemini-sandbox-java .
 ```
 
 Run the container:
 ```bash
-docker run -it gemini-sandbox-java
+docker run -it backendsouls/gemini-sandbox-java
 ```
 
-## Note for Runtimes
+## Available Tags
+- `latest`: Latest stable build.
+- `backendsouls`: Team-verified alias.
+- `python3.13-node24`: Runtime-versioned tag.
+
+## Usage Notes
 - **SDKMAN!**: To use Java, Maven, or Gradle, you may need to initialize SDKMAN in your shell: `source $SDKMAN_DIR/bin/sdkman-init.sh`.
 
 ## Image Metadata

@@ -54,8 +54,8 @@ To use a sandbox, navigate to its directory and build the Docker image:
 
 ```bash
 cd sandboxes/python
-docker build -t gemini-python .
-docker run -it gemini-python
+docker build -t backendsouls/gemini-sandbox-python .
+docker run -it backendsouls/gemini-sandbox-python
 ```
 
 ## Package Management
@@ -67,13 +67,21 @@ Example of installing a new tool inside a running container:
 sudo apt-get update && sudo apt-get install <package>
 ```
 
+## Image Tagging
+
+All images on the main branch are automatically tagged with:
+- `latest`: The most recent stable build.
+- `backendsouls`: A stable alias for the BackendSouls team.
+- `python3.13-node24`: Denotes the core runtime versions pre-installed.
+- `sha-<short-sha>`: Pinned version based on the Git commit.
+
 ## Usage with Gemini CLI
 
 You can use these sandboxes directly with the Gemini CLI by setting the following environment variables:
 
 ```bash
 export GEMINI_SANDBOX=docker
-export GEMINI_SANDBOX_IMAGE=gemini-sandbox-all
+export GEMINI_SANDBOX_IMAGE=backendsouls/gemini-sandbox-all
 
 # Optional: Set a dedicated workspace directory to share with the sandbox
 export WORKSPACE=/path/to/your/projects
@@ -84,7 +92,7 @@ export SANDBOX_MOUNTS="/host/data:/container/data:ro"
 gemini -s
 ```
 
-Replace `gemini-sandbox-all` with any other specific language image (e.g., `gemini-sandbox-python`) as needed.
+Replace `backendsouls/gemini-sandbox-all` with any other specific language image (e.g., `backendsouls/gemini-sandbox-python`) as needed.
 
 See [EXTENSIONS.md](./EXTENSIONS.md) for details on pre-installed Gemini extensions.
 
