@@ -173,3 +173,57 @@ This log records significant actions, architectural decisions, and reasoning pat
   - **Rationale**: Building the base image first and then parallelizing the language-specific builds optimizes CI time while ensuring all images use the exact same base layer.
 - **Decision**: Use build arguments for the base image reference.
   - **Rationale**: This allows the CI/CD pipeline to inject the Docker Hub-prefixed image name (username/gemini-sandbox-base) without hardcoding it in the source files, maintaining local build compatibility.
+
+## [2026-05-17] Refactored Base Sandbox Dockerfile
+
+### Actions:
+- Refactored `sandboxes/base/Dockerfile` to use a multi-stage build strategy.
+- Switched the base image from Ubuntu 22.04 to `debian:stable-slim` for a smaller footprint.
+- Implemented `extension-builder` stage using `node:20-bookworm` to clone and build Gemini extensions.
+- Configured Homebrew to install from API and disabled analytics (`HOMEBREW_INSTALL_FROM_API=1`, `HOMEBREW_NO_ANALYTICS=1`).
+- Cleaned up the final image by excluding extension build tools and temporary files.
+- Simplified PATH management and user setup.
+
+### Decisions:
+- **Decision**: Use multi-stage builds.
+  - **Rationale**: Keeps the final image lightweight by isolating the build environment for extensions from the runtime environment.
+- **Decision**: Switch to Debian Slim.
+  - **Rationale**: Provides a smaller, more secure foundation than full Ubuntu while maintaining compatibility with necessary tools.
+- **Decision**: Enable Homebrew API mode.
+  - **Rationale**: Significantly reduces image size by avoiding large git clones of the Homebrew core and cask taps.
+
+## [2024-05-22] Revised Base Sandbox Dockerfile Refactor
+
+### Actions:
+- Refactored `sandboxes/base/Dockerfile` using a multi-stage build strategy based on the updated specification.
+- Used `node:20-bookworm` for the `extension-builder` stage to clone and build Gemini extensions (context7, superpowers, conductor, open-aware, code-review, security, co-researcher).
+- Switched final stage to `debian:stable-slim`.
+- Installed system dependencies: `build-essential`, `curl`, `git`, `sudo`, `procps`, `file`, `wget`, `dnsutils`, `zip`, `unzip`, `sed`, `ripgrep`, `fd-find`, `jq`, `bat`, `fzf`, `vim`, `htop`, `tree`, `tldr`, `shellcheck`, `python3.11`, `nodejs`, `npm`.
+- Configured Homebrew in the final stage and installed `yq` and `htmlq`.
+- Pre-configured Gemini CLI and restored the standard `GEMINI.md` instructions within the container.
+- Set up global git config and telemetry-disabled settings for Gemini CLI.
+
+### Decisions:
+- **Decision**: Use `debian:stable-slim`.
+  - **Rationale**: Minimal footprint while maintaining full compatibility with Debian/Ubuntu toolchains.
+- **Decision**: Use `extension-builder` stage.
+  - **Rationale**: Isolates heavy build dependencies (like full git clones and npm build processes) from the final runtime image, significantly reducing final size and improving security.
+- **Decision**: Fix Debian binary naming (`bat` and `fd`).
+  - **Rationale**: Debian packages use `batcat` and `fdfind`; symlinking them to `bat` and `fd` maintains CLI compatibility with other environments.
+- **Decision**: Use Homebrew for `yq` and `htmlq`.
+  - **Rationale**: Ensures the latest versions are available regardless of the Debian repository state.
+
+## [2026-05-17] Refactored All-in-One Sandbox Dockerfile
+
+### Actions:
+- Backed up original `sandboxes/all/Dockerfile` to `sandboxes/all/Dockerfile.bak`.
+- Rewrote `sandboxes/all/Dockerfile` to inherit from `gemini-sandbox-base`.
+- Implemented NVM for Node.js (version 20) and SDKMAN for Java (version 17.0.10-tem).
+- Installed Go, Rust, Ruby, PHP, Lua, CMake, and GDB via Homebrew.
+- Streamlined the Dockerfile by removing redundant tool installations and documentation generation now handled by the base image.
+
+### Decisions:
+- **Decision**: Shift runtime management to NVM and SDKMAN.
+  - **Rationale**: Provides more flexibility and cleaner version management within the "All-in-One" environment.
+- **Decision**: Rely on base image for core tools and extensions.
+  - **Rationale**: Reduces image bloat and ensures consistent capability across all specialized sandboxes.
