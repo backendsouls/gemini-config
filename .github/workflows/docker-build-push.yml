@@ -25,6 +25,8 @@ jobs:
           images: ${{ env.DOCKER_NAMESPACE }}/gemini-sandbox-base
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=backendsouls,enable={{is_default_branch}}
+            type=raw,value=python3.13-node24,enable={{is_default_branch}}
             type=sha,format=short
             type=ref,event=branch
             type=ref,event=pr
@@ -67,6 +69,8 @@ jobs:
           images: ${{ env.DOCKER_NAMESPACE }}/gemini-sandbox-${{ matrix.language == 'javascript' && 'js' || matrix.language }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=backendsouls,enable={{is_default_branch}}
+            type=raw,value=python3.13-node24,enable={{is_default_branch}}
             type=sha,format=short
             type=ref,event=branch
             type=ref,event=pr
