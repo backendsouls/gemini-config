@@ -3,7 +3,7 @@
 This sandbox provides a specialized environment for Rust development within the Gemini CLI. It inherits from the Debian-based `gemini-sandbox-base`.
 
 ## Included Tools
-- **Runtimes**: Rust, Cargo (latest via Brew)
+- **Runtimes**: Rust, Cargo (Native)
 - **Base Utilities**: `jq`, `fzf`, `ripgrep` (rg), `fd`, `bat`, `tree`, `vim`, `htop`, `curl`, `git`
 
 ## Security & Isolation

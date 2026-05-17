@@ -12,7 +12,7 @@ This workspace is designed to manage and build various Docker-based sandbox envi
   - **NVM**: Used in JavaScript sandboxes for Node.js versions.
 - **User**: The default user in all sandboxes is `gemini` with `sudo` access.
 
-## Available Tools (Pre-installed via Brew/Apt)
+## Available Tools (Pre-installed via Apt/Native)
 When working within these sandboxes, you have access to:
 - **Compilers**: `build-essential` (gcc, g++, make), `cmake`, `gdb`
 - **Text Processing**: `jq`, `yq`, `htmlq`, `sed`, `wc`, `zip`, `unzip`

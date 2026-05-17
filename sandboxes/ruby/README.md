@@ -26,6 +26,6 @@ docker run -it gemini-sandbox-ruby
 
 ## Instructions for Gemini
 1. Use 'gemini extensions list' to see available extensions and their skills.
-2. Use 'brew install <package>' if you need more Ruby-related tools or libraries.
+2. Use 'sudo apt-get install <package>' if you need more Ruby-related tools or libraries.
 3. Prefer Python 3.11 for automation scripts even within this Ruby environment.
-ronment.
+

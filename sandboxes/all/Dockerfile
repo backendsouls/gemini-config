@@ -7,7 +7,7 @@ LABEL description="Comprehensive sandbox image with all runtimes"
 ENV NVM_DIR="/home/gemini/.nvm" SDKMAN_DIR="/home/gemini/.sdkman"
 
 USER root
-# Install native packages (replacing Brew)
+# Install native packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ruby ruby-dev php-cli php-dev lua5.4 liblua5.4-dev cmake gdb \
     && rm -rf /var/lib/apt/lists/*
