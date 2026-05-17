@@ -225,5 +225,21 @@ This log records significant actions, architectural decisions, and reasoning pat
 ### Decisions:
 - **Decision**: Shift runtime management to NVM and SDKMAN.
   - **Rationale**: Provides more flexibility and cleaner version management within the "All-in-One" environment.
-- **Decision**: Rely on base image for core tools and extensions.
+- Rely on base image for core tools and extensions.
   - **Rationale**: Reduces image bloat and ensures consistent capability across all specialized sandboxes.
+
+## [2024-05-22] Revised All-in-One Sandbox Dockerfile Refactor
+
+### Actions:
+- Refactored `sandboxes/all/Dockerfile` with optimized RUN layers and explicit PATH configuration.
+- Combined NVM and SDKMAN installation into a single layer.
+- Combined runtime installations into a single layer and included `nvm alias default`.
+- Explicitly configured `PATH` to include NVM and SDKMAN binary directories for non-interactive shell support.
+- Backed up the previous Dockerfile to `sandboxes/all/Dockerfile.bak`.
+
+### Decisions:
+- **Decision**: Combine RUN layers.
+  - **Rationale**: Reduces the number of layers in the Docker image, leading to a smaller overall size.
+- **Decision**: Explicitly set PATH in Dockerfile.
+  - **Rationale**: Ensures that binaries installed via version managers (NVM, SDKMAN) are available in non-interactive shells, which is critical for agent automation.
+
