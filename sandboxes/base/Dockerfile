@@ -27,7 +27,7 @@ RUN npm install -g pnpm && \
     npm cache clean --force
 
 # Stage 2: Final Image
-FROM debian:stable-slim
+FROM python:3.13-slim
 
 # Build-time metadata
 LABEL maintainer="Gemini CLI Team"
@@ -43,7 +43,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl git sudo procps file wget dnsutils zip unzip sed \
     ripgrep fd-find jq bat fzf vim htop tree shellcheck \
-    python3 python3-pip nodejs npm \
+    nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Binary compatibility links

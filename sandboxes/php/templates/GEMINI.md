@@ -8,7 +8,7 @@ You are running inside a specialized Gemini CLI sandbox.
 - **User**: gemini (with passwordless sudo)
 - **Package Manager**: `apt` (Debian Native) is available and preferred.
 - **Core Tools**: Gemini CLI, jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig, zip, unzip.
-- **Scripting**: Python 3.11 is available.
+- **Scripting**: Python 3.13 is available.
 
 ## Language Specifics
 - This sandbox includes: Gemini CLI, PHP

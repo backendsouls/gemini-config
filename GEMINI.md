@@ -23,7 +23,7 @@ When working within these sandboxes, you have access to:
 - **Networking**: `curl`, `wget`, `dig`
 - **Monitoring**: `htop`
 - **Editing**: `vim`
-- **Scripting**: **Python 3.11** is guaranteed to be available in all language-specific sandboxes to support your automation tasks.
+- **Scripting**: **Python 3.13** is guaranteed to be available in all language-specific sandboxes to support your automation tasks.
 
 ## Pre-installed Extensions
 The following Gemini CLI extensions are pre-installed and pre-built in all sandboxes:
@@ -69,6 +69,6 @@ export WORKSPACE=/path/to/your/projects
 ## Instructions for Gemini
 1. **Strict Isolation**: Never attempt to access paths outside the sandbox. If you need more data, provide the user with a `docker run` or `export SANDBOX_MOUNTS` command example.
 2. **Tool Discovery**: If you need a tool that isn't installed, check if it's available via `apt`.
-3. **Scripting**: Prefer Python 3.11 for complex logic or automation tasks within the sandboxes.
+3. **Scripting**: Prefer Python 3.13 for complex logic or automation tasks within the sandboxes.
 4. **Environment**: Global Node.js packages are located in `/home/gemini/.npm-global/bin`.
 5. **Context**: Each sandbox directory contains a `README.md` with specific details about that environment's language and configuration.

@@ -4,7 +4,7 @@
 A specialized environment for Python development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox.
 
 ## Included Tools
-- **Python Development**: Python 3.11, `pip`, `venv`
+- **Python Development**: Python 3.13, `pip`, `venv`
 - **Base Utilities**: Includes all core and CLI utilities from the `base` sandbox (e.g., `ripgrep`, `fd`, `jq`, `bat`).
 - **Package Managers**: `apt` (Debian Native)
 

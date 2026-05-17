@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  # Fallback to DOCKER_USERNAME secret if DOCKER_NAMESPACE variable is not set
+  DOCKER_NAMESPACE: ${{ vars.DOCKER_NAMESPACE || secrets.DOCKER_USERNAME }}
+
 jobs:
   build-and-push-base:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-base
+          images: ${{ env.DOCKER_NAMESPACE }}/gemini-sandbox-base
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,format=short
@@ -60,7 +64,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.language == 'javascript' && 'js' || matrix.language }}
+          images: ${{ env.DOCKER_NAMESPACE }}/gemini-sandbox-${{ matrix.language == 'javascript' && 'js' || matrix.language }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,format=short
@@ -85,7 +89,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            BASE_IMAGE=${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-base:latest
+            BASE_IMAGE=${{ env.DOCKER_NAMESPACE }}/gemini-sandbox-base:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -105,6 +109,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-          repository: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.image }}
+          repository: ${{ env.DOCKER_NAMESPACE }}/gemini-sandbox-${{ matrix.image }}
           short-description: "Opinionated unofficial Gemini CLI sandbox for ${{ matrix.image }}. High-performance, Debian-based, pre-configured with essential extensions."
           readme-filepath: ./sandboxes/${{ matrix.image == 'js' && 'javascript' || matrix.image }}/README.md

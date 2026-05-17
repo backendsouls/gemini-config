@@ -6,7 +6,7 @@ This is a comprehensive sandbox environment containing all supported runtimes an
 ## Included Tools
 - **All Base Tools**: Includes all core and CLI utilities from the `base` sandbox.
 - **Languages & Runtimes**: 
-  - Python 3.11
+  - Python 3.13
   - Node.js (via NVM)
   - Java (OpenJDK via SDKMAN!)
   - Go, Rust, Ruby, PHP, Lua

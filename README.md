@@ -7,15 +7,15 @@ This repository contains various Docker-based sandbox environments for Gemini CL
 | Sandbox | Description | Key Tools |
 |---|-|---|
 | [Base](./sandboxes/base) | Essential tools only | `jq`, `fzf`, `ripgrep (rg)`, `fd`, `bat`, `vim`, `sed`, `yq`, `htmlq` |
-| [Python](./sandboxes/python) | Python optimized | Python 3.11, Base Tools |
-| [JavaScript](./sandboxes/javascript) | JS/TS optimized | Node.js (NVM), TypeScript, Python 3.11 |
-| [Go](./sandboxes/go) | Go optimized | Go (Native), Python 3.11, Base Tools |
-| [Rust](./sandboxes/rust) | Rust optimized | Rust (Minimal), Python 3.11, Base Tools |
-| [Ruby](./sandboxes/ruby) | Ruby optimized | Ruby (Native), Python 3.11, Base Tools |
-| [Java](./sandboxes/java) | Java optimized | Java (SDKMAN), Maven, Gradle, Python 3.11 |
-| [PHP](./sandboxes/php) | PHP optimized | PHP (Native), Python 3.11, Base Tools |
-| [Lua](./sandboxes/lua) | Lua optimized | Lua (Native), Python 3.11 |
-| [C/C++](./sandboxes/cpp) | C/C++ optimized | build-essential, CMake, GDB, Python 3.11 |
+| [Python](./sandboxes/python) | Python optimized | Python 3.13, Base Tools |
+| [JavaScript](./sandboxes/javascript) | JS/TS optimized | Node.js (NVM), TypeScript, Python 3.13 |
+| [Go](./sandboxes/go) | Go optimized | Go (Native), Python 3.13, Base Tools |
+| [Rust](./sandboxes/rust) | Rust optimized | Rust (Minimal), Python 3.13, Base Tools |
+| [Ruby](./sandboxes/ruby) | Ruby optimized | Ruby (Native), Python 3.13, Base Tools |
+| [Java](./sandboxes/java) | Java optimized | Java (SDKMAN), Maven, Gradle, Python 3.13 |
+| [PHP](./sandboxes/php) | PHP optimized | PHP (Native), Python 3.13, Base Tools |
+| [Lua](./sandboxes/lua) | Lua optimized | Lua (Native), Python 3.13 |
+| [C/C++](./sandboxes/cpp) | C/C++ optimized | build-essential, CMake, GDB, Python 3.13 |
 | [All](./sandboxes/all) | Everything included | All of the above |
 
 ## Prerequisites
@@ -94,6 +94,9 @@ To use this workflow, you must set the following secrets in your GitHub reposito
 - `DOCKER_TOKEN`: A Docker Hub **Personal Access Token (PAT)**.
 
 **Note**: It is highly recommended to use a PAT instead of your account password for security. You can generate one in your [Docker Hub Account Settings](https://hub.docker.com/settings/security).
+
+### Customization
+By default, images are pushed to the namespace associated with your `DOCKER_USERNAME`. You can change the target namespace (e.g., to an organization) by setting the `DOCKER_NAMESPACE` repository variable in your GitHub settings.
 
 The workflow builds the `base` image first and then builds all language-specific images in parallel, using the freshly built base image.
 
