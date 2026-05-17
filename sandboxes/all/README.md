@@ -1,26 +1,38 @@
 # All-in-One Sandbox
 
-This sandbox contains all tools and programming languages in a single environment.
+This is a comprehensive sandbox environment containing all supported runtimes and tools in a single image. It is built on **Debian (Stable Slim)** and inherits from the `base` sandbox.
 
-## Included
-- **Languages**: Python 3.11, Node.js, Go, Rust, Ruby, Java (OpenJDK), PHP
-- **CLI Utilities**: `jq`, `fzf`, `ripgrep`, `fd`, `bat`, `tree`
-- **Editors**: `vim`
-- **System**: `htop`, `curl`, `git`
+## Included Tools
+- **All Base Tools**: Includes all core and CLI utilities from the `base` sandbox.
+- **Languages & Runtimes**: 
+  - Python 3.11
+  - Node.js (via NVM)
+  - Java (OpenJDK via SDKMAN!)
+  - Go, Rust, Ruby, PHP, Lua
+- **Build & Debug**: `cmake`, `gdb`, `build-essential`
+- **Package Managers**: Homebrew (`brew`), NVM, SDKMAN!
 
 ## Pre-installed Extensions
 This sandbox comes with several pre-installed Gemini extensions:
-- context7, superpowers, conductor, open-aware, code-review, security, and co-researcher.
+- `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `gemini-cli-security`, and `co-researcher`.
 You can list them using `gemini extensions list`.
 
 ## Security & Isolation
-- **Host Independence**: The agent cannot access host paths outside the shared directory.
-- **Strict Boundaries**: All tools and extensions are pre-installed in the image for total isolation.
-- **WORKSPACE Support**: Respects the `WORKSPACE` environment variable for shared project roots.
-- **Volume Guidance**: The agent will guide you on using `SANDBOX_MOUNTS` if more data is needed.
+- **Strict Boundaries**: All tools and extensions are pre-installed in the image for total isolation. The agent cannot access host paths outside the shared directory.
+- **Shared Workspace**: Respects the `WORKSPACE` environment variable for shared project roots. Use this as your primary context.
+- **Volume Guidance**: If additional data is required, the agent will guide you on using `SANDBOX_MOUNTS` or `docker run -v` to share host directories safely.
 
 ## Usage
+Build the image:
 ```bash
 docker build -t gemini-sandbox-all .
+```
+
+Run the container:
+```bash
 docker run -it gemini-sandbox-all
 ```
+
+## Note for Runtimes
+- **NVM**: To use Node.js, you may need to initialize NVM: `source $NVM_DIR/nvm.sh`.
+- **SDKMAN!**: To use Java, Maven, or Gradle, you may need to initialize SDKMAN: `source $SDKMAN_DIR/bin/sdkman-init.sh`.

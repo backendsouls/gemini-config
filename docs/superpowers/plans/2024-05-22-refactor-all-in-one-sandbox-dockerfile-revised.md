@@ -37,7 +37,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
     curl -s "https://get.sdkman.io" | bash
 
 # Install Runtimes (minimal) and update PATH
-RUN bash -c "source $NVM_DIR/nvm.sh && nvm install 20 && nvm alias default 20" && \
+RUN bash -c "source $NVM_DIR/nvm.sh && npm config delete prefix && nvm install 20 && nvm alias default 20" && \
     bash -c "source $SDKMAN_DIR/bin/sdkman-init.sh && sdk install java 17.0.10-tem"
 
 # Other languages via Brew (API mode ensures this is relatively light)

@@ -5,7 +5,7 @@ This workspace is designed to manage and build various Docker-based sandbox envi
 ## Sandbox Architecture
 - **Location**: All sandboxes are located in the `sandboxes/` directory.
 - **Architecture**: A hierarchical Docker structure is used. All language sandboxes inherit from `sandboxes/base`.
-- **Base Image**: The `base` sandbox is built on Ubuntu 22.04.
+- **Base Image**: The `base` sandbox is built on Debian (Stable Slim).
 - **Package Managers**: 
   - **Homebrew (`brew`)**: Primary manager for CLI tools.
   - **SDKMAN!**: Used in Java sandboxes for JDKs, Maven, and Gradle.

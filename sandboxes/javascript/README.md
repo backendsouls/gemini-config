@@ -1,33 +1,32 @@
 # JavaScript Sandbox
 
-This sandbox is optimized for JavaScript and TypeScript development across different Node.js versions.
+A specialized environment for JavaScript and TypeScript development, built on **Debian (Stable Slim)** and inheriting from the `base` sandbox. It uses NVM for managing Node.js versions.
 
-## Included
-- **Version Manager**: [NVM](https://github.com/nvm-sh/nvm)
-- **Default Language**: Node.js 20 (LTS)
-- **Languages**: TypeScript (global)
-- **Scripting**: Python 3.11 (for Gemini usage)
-- **Base Tools**: `jq`, `fzf`, `rg`, `fd`, `bat`
+## Included Tools
+- **JavaScript Development**: Node.js (via NVM), npm, pnpm, TypeScript
+- **Base Utilities**: Includes all core and CLI utilities from the `base` sandbox (e.g., `ripgrep`, `fd`, `jq`, `bat`).
+- **Package Managers**: Homebrew (`brew`), NVM
 
 ## Pre-installed Extensions
 This sandbox comes with several pre-installed Gemini extensions:
-- context7, superpowers, conductor, open-aware, code-review, security, and co-researcher.
+- `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `gemini-cli-security`, and `co-researcher`.
 You can list them using `gemini extensions list`.
 
 ## Security & Isolation
-- **Host Independence**: The agent cannot access host paths outside the shared directory.
-- **Strict Boundaries**: All tools and extensions are pre-installed in the image for total isolation.
-- **WORKSPACE Support**: Respects the `WORKSPACE` environment variable for shared project roots.
-- **Volume Guidance**: The agent will guide you on using `SANDBOX_MOUNTS` if more data is needed.
+- **Strict Boundaries**: All tools and extensions are pre-installed in the image for total isolation. The agent cannot access host paths outside the shared directory.
+- **Shared Workspace**: Respects the `WORKSPACE` environment variable for shared project roots. Use this as your primary context.
+- **Volume Guidance**: If additional data is required, the agent will guide you on using `SANDBOX_MOUNTS` or `docker run -v` to share host directories safely.
 
 ## Usage
-NVM is pre-installed. To initialize it in a new shell:
+Build the image:
 ```bash
-source "$NVM_DIR/nvm.sh"
+docker build -t gemini-sandbox-javascript .
 ```
 
-To build:
+Run the container:
 ```bash
-docker build -t gemini-sandbox-js .
-docker run -it gemini-sandbox-js
+docker run -it gemini-sandbox-javascript
 ```
+
+## Note for Runtimes
+- **NVM**: To use Node.js, you may need to initialize NVM in your shell: `source $NVM_DIR/nvm.sh`.

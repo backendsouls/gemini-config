@@ -1,6 +1,6 @@
 # Makefile for Gemini CLI Sandbox Environments
 
-.PHONY: all build-all base python javascript go rust ruby java php clean help
+.PHONY: all build-all base build-base python javascript go rust ruby java php clean help
 
 # Default target
 all: help
@@ -11,6 +11,7 @@ help:
 	@echo ""
 	@echo "Targets:"
 	@echo "  base         Build base sandbox"
+	@echo "  build-base   Build base sandbox (alias)"
 	@echo "  python       Build python sandbox"
 	@echo "  javascript   Build javascript sandbox"
 	@echo "  go           Build go sandbox"
@@ -27,6 +28,8 @@ help:
 # Individual build targets
 base:
 	docker build -t gemini-sandbox-base sandboxes/base
+
+build-base: base
 
 python: base
 	docker build -t gemini-sandbox-python sandboxes/python
