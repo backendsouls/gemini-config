@@ -14,6 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-base
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=short
+            type=ref,event=branch
+            type=ref,event=pr
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
@@ -29,9 +40,8 @@ jobs:
         with:
           context: ./sandboxes/base
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-base:latest
-            ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-base:${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -45,6 +55,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.language == 'javascript' && 'js' || matrix.language }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=short
+            type=ref,event=branch
+            type=ref,event=pr
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -61,9 +82,8 @@ jobs:
         with:
           context: ./sandboxes/${{ matrix.language }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.language == 'javascript' && 'js' || matrix.language }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.language == 'javascript' && 'js' || matrix.language }}:${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             BASE_IMAGE=${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-base:latest
           cache-from: type=gha
@@ -86,5 +106,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
           repository: ${{ secrets.DOCKER_USERNAME }}/gemini-sandbox-${{ matrix.image }}
-          short-description: "Gemini CLI Sandbox Environment - ${{ matrix.image }} variant"
+          short-description: "Official Gemini CLI sandbox for ${{ matrix.image }}. High-performance, Debian-based, pre-configured with essential extensions."
           readme-filepath: ./sandboxes/${{ matrix.image == 'js' && 'javascript' || matrix.image }}/README.md

@@ -1,10 +1,29 @@
 # Rust Sandbox
 
-This sandbox provides a specialized environment for Rust development within the Gemini CLI. It inherits from the Debian-based `gemini-sandbox-base`.
+This sandbox provides a specialized environment for Rust development within the Gemini CLI. It inherits from the **Debian (Stable Slim)** based `gemini-sandbox-base`.
 
 ## Included Tools
 - **Runtimes**: Rust, Cargo (Native)
 - **Base Utilities**: `jq`, `fzf`, `ripgrep` (rg), `fd`, `bat`, `tree`, `vim`, `htop`, `curl`, `git`
+
+## Pre-installed Extensions
+This sandbox comes with several pre-installed Gemini extensions to enhance your development workflow:
+- `context7`: Enhanced context management using Upstash.
+- `superpowers`: Advanced utility tools for agent efficiency.
+- `conductor`: Workflow orchestration and track management.
+- `open-aware`: Code awareness and symbol understanding across repositories.
+- `code-review`: Automated code quality and PR analysis.
+- `gemini-cli-security`: Vulnerability identification and secure coding assistant.
+- `co-researcher`: Deep research and synthesis capabilities.
+
+You can explore these capabilities using `gemini extensions list`.
+
+## Best Practices
+- **Workspace Context**: Use the `WORKSPACE` environment variable to define your project root for multi-project tasks.
+- **Tool Installation**: Prefer `sudo apt-get install` for temporary tools to keep the environment clean and reproducible.
+- **Resilient Scripts**: Leverage the `retry` utility (pre-installed in `scripts/`) for resilient network operations in your automation scripts.
+- **Discovery**: Explore extension capabilities and documentation with `gemini extensions list`.
+- **Rust specifics**: Use `cargo install <crate>` for additional Rust-based tools.
 
 ## Security & Isolation
 - **Strict Boundaries**: You MUST NOT attempt to access or read any host directories directly using absolute paths. 
@@ -23,7 +42,7 @@ Run the container:
 docker run -it gemini-sandbox-rust
 ```
 
-## Instructions for Gemini
-1. Use 'gemini extensions list' to see available extensions and their skills.
-2. Use 'cargo install <crate>' or 'sudo apt-get install <package>' for additional tools.
-3. Prefer Python 3.11 for automation scripts even within this Rust environment.
+## Image Metadata
+- **Base OS**: Debian (Stable Slim)
+- **Architecture**: amd64, arm64
+- **Repository**: [github.com/backendsouls/gemini-config](https://github.com/backendsouls/gemini-config)

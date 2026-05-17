@@ -4,29 +4,24 @@ This log records significant actions, architectural decisions, and reasoning pat
 
 ---
 
-## [2026-05-17] Major Size Optimization: The "Death of Brew"
+## [2026-05-17] Enhanced Metadata & Professional Documentation
 
 ### Actions:
-- **Removed Homebrew Entirely**: Eliminated `/home/linuxbrew/.linuxbrew` from the base image, resulting in a ~4.6GB reduction in the final image size.
-- **Native Package Management**: Transitioned to `apt-get` for all system-level tools (e.g., `ruby`, `php`, `lua`, `cmake`).
-- **Official Binary Installers**:
-    - **Go**: Switched to official tarball extraction in `/usr/local/go`.
-    - **Rust**: Switched to `rustup` with `--profile minimal` to avoid documentation and heavy toolchain bloat.
-    - **yq/htmlq**: Switched to direct GitHub release binary downloads (architecture-aware) instead of Brew bottles.
-- **Selective Build Tools**:
-    - Removed `build-essential` from the `base` and `all` images to save ~250MB.
-    - Preserved `build-essential` specifically in the `cpp` sandbox as per user requirement.
-- **Documentation Overhaul**: Updated all 11 sandbox `README.md` and `templates/GEMINI.md` files to remove Homebrew references and standardize on `apt`.
+- **CI/CD Modernization**: Upgraded all GitHub Actions in `.github/workflows/docker-build-push.yml` to their latest versions to address Node.js 20 deprecation.
+- **Rich Docker Metadata**: Integrated `docker/metadata-action@v6` to automatically generate dynamic tags (branch, sha, PR, latest) and OCI labels for all images.
+- **Meaningful Documentation**:
+    - Enriched all 11 sandbox `README.md` files with detailed extension descriptions and a "Best Practices" section.
+    - Standardized `templates/GEMINI.md` to provide the same level of detailed guidance to agents running inside the containers.
+    - Added image metadata (OS, Architecture, Repository link) to all READMEs.
+- **Refined Docker Hub Descriptions**: Updated the CI/CD pipeline to push specific, informative "Short Descriptions" for each image variant.
 
 ### Decisions:
-- **Decision**: Eliminate Homebrew.
-  - **Rationale**: Analysis showed Brew was responsible for ~50% of the image bloat. Using native `apt` packages and minimal binary installers provides the same functionality at a fraction of the size.
-- **Decision**: Use `set -e` and `set -o pipefail` in all setup scripts (omitting `set -u`).
-  - **Rationale**: Enforces strict error handling while maintaining compatibility with SDKMAN! and NVM internal scripts.
-- **Decision**: Multi-stage binary downloads.
-  - **Rationale**: Ensures we only keep the final binary in the image, avoiding temporary download artifacts.
+- **Decision**: Use `docker/metadata-action`.
+  - **Rationale**: It's the industry standard for managing Docker tags and labels in GitHub Actions, ensuring consistent and meaningful versioning.
+- **Decision**: Align internal and external documentation.
+  - **Rationale**: Ensuring that both the user (reading the README) and the agent (reading `GEMINI.md`) have the same high-quality context leads to better collaboration and more efficient use of the sandbox.
 
 ---
 
-## [2026-05-17] Image Size Optimization: Aggressive Cache Cleanup
+## [2026-05-17] Major Size Optimization: The "Death of Brew"
 ... rest of file ...

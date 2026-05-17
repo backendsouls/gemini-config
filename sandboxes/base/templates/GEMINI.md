@@ -5,11 +5,20 @@ You are running inside a specialized Gemini CLI sandbox.
 - **OS**: Debian (Stable Slim)
 - **User**: gemini (with passwordless sudo)
 - **Package Manager**: `apt` (Debian Native) is available and preferred.
-- **Extensions**: Pre-installed Gemini extensions include `context7`, `superpowers`, `conductor`, `open-aware`, `code-review`, `security`, and `co-researcher`.
 - **Core Tools**: Gemini CLI, jq, yq, htmlq, fzf, ripgrep (rg), fd, bat, tree, htop, vim, git, sed, wc, shellcheck, tldr, wget, curl, dig, zip, unzip.
 - **Scripting**: Python 3.11 is available.
 
-## Instructions
-1. Use 'gemini extensions list' to see available extensions and their skills.
-2. Use 'sudo apt-get install <package>' if you need more tools.
-3. Prefer Python 3.11 for automation scripts.
+## Pre-installed Extensions
+- `context7`: Enhanced context management (Upstash).
+- `superpowers`: Advanced utility tools.
+- `conductor`: Workflow orchestration.
+- `open-aware`: Code awareness and symbol understanding.
+- `code-review`: Automated code quality analysis.
+- `gemini-cli-security`: Vulnerability identification.
+- `co-researcher`: Deep research assistant.
+
+## Best Practices
+- Use the `WORKSPACE` variable for project context.
+- Use `sudo apt-get install` for on-demand tools.
+- Use the `retry` utility for resilient scripts.
+- Run `gemini extensions list` to explore capabilities.
