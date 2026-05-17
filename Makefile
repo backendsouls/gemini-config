@@ -46,43 +46,43 @@ base:
 build-base: base
 
 python: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-python sandboxes/python
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-python sandboxes/python
 	$(call tag_image,python)
 
 javascript: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-js sandboxes/javascript
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-js sandboxes/javascript
 	$(call tag_image,js)
 
 go: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-go sandboxes/go
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-go sandboxes/go
 	$(call tag_image,go)
 
 rust: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-rust sandboxes/rust
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-rust sandboxes/rust
 	$(call tag_image,rust)
 
 ruby: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-ruby sandboxes/ruby
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-ruby sandboxes/ruby
 	$(call tag_image,ruby)
 
 java: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-java sandboxes/java
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-java sandboxes/java
 	$(call tag_image,java)
 
 php: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-php sandboxes/php
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-php sandboxes/php
 	$(call tag_image,php)
 
 lua: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-lua sandboxes/lua
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-lua sandboxes/lua
 	$(call tag_image,lua)
 
 cpp: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-cpp sandboxes/cpp
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-cpp sandboxes/cpp
 	$(call tag_image,cpp)
 
 all-in-one: base
-	docker build -t $(NAMESPACE)/$(IMAGE_PREFIX)-all sandboxes/all
+	docker build --build-arg BASE_IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)-base -t $(NAMESPACE)/$(IMAGE_PREFIX)-all sandboxes/all
 	$(call tag_image,all)
 
 # Upgrade Gemini CLI to the latest version across all images
