@@ -103,6 +103,31 @@ See [EXTENSIONS.md](./EXTENSIONS.md) for details on pre-installed Gemini extensi
 3. **Volume-Based Access**: If additional data is needed, the agent will guide you on how to share it using `SANDBOX_MOUNTS` instead of accessing it directly.
 4. **WORKSPACE Environment Variable**: Use this to define the root of your shared projects. The agent uses this as its primary operational context.
 
+## Network Hardening
+
+Inspired by the [libops/cli-sandbox](https://github.com/libops/cli-sandbox) security model, these sandboxes include a modular network hardening utility to prevent data exfiltration.
+
+### The `harden-network` Utility
+You or the AI agent can toggle a strict Zero-Trust egress policy using the pre-installed `harden-network` tool.
+
+- **Enable Hardening**: `sudo harden-network on`
+  - Restricts all outbound traffic to only standard web ports (**80/443**) and **DNS (53)**.
+  - Blocks all non-standard ports commonly used for data exfiltration or reverse shells.
+- **Disable Hardening**: `sudo harden-network off`
+  - Restores default unrestricted outbound access for complex development tasks.
+
+### Requirements
+To use this feature, the container must be started with the `NET_ADMIN` capability:
+
+```bash
+docker run --cap-add=NET_ADMIN -it backendsouls/gemini-sandbox-all
+```
+
+When using with Gemini CLI, you can add this to your environment:
+```bash
+export SANDBOX_FLAGS="--cap-add=NET_ADMIN"
+```
+
 ## CI/CD (GitHub Actions)
 
 A GitHub Actions workflow is provided in `.github/workflows/docker-build-push.yml` to automate Docker image builds.
